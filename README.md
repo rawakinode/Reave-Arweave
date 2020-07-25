@@ -1,5 +1,13 @@
 # Reave-Arweave
  A Decentralized Story Sharing Platform based Arweave Blockchain
+ 
+# Problem
+
+In the first quarter of 2020, internet users around the world reached 4.5 trillion active users. Among these statistics, some of them are users of online publishing media. One problem that is seen today is that the publish platform is still centralized. All writers and readers are subject to and obey the rules and regulations both from the agency and from the government. This allows the deletion of data and author's account so that it can be detrimental to the author. In addition, there is still a lack of platforms that provide income directly from readers to writers.
+
+# Solution
+
+Reave's story and information sharing platform is intended so that the Author has the freedom to write and publish his writings on the internet. Because it is decentralized, it means the user account is 100% owned by the user. All asset, data and information management is managed by the user himself. In other words, Author is free to delete, post and share any information on the Reave platform. Reave is permanent, meaning that all user account data will not be lost in the blockchain ledger. All are recorded and stored on the Arweave Blockchain. In addition, the best solution is to provide 100% incentives to Author.
 
 # What is Reave ?
 
