@@ -11,5 +11,42 @@ Reave is a incentive-based platform for sharing stories, information, news and o
 # Reave Comparison with Other Platforms
 
 Reave includes writing and information sharing platforms such as blogs, telegra.ph, medium, or steemit. On this platform users can write, insert images, insert videos, links, or program code. Reave comparisons with other platforms namely from the storage model. If other platforms store story data on web hosting and cloud, Reave stores story data on Blockchain. In a sense, as long as the arweave blockchain is mined, user data will always be there and permanent there. Your story cannot be deleted on the blockchain.
+
+ <table>
+    <thead>
+      <tr>
+        <th>Platform</th>
+        <th>Decentralized</th>
+        <th>Profit Sharing</th>
+        <th>Permanent Data</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Reave</td>
+            <td>&#10004;</td>
+            <td>&#10004;</td>
+            <td>&#10004;</td>
+        </tr>
+        <tr>
+            <td>Medium</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+     <tr>
+            <td>Steemit</td>
+            <td>-</td>
+            <td>&#10004;</td>
+            <td>-</td>
+        </tr>
+     <tr>
+            <td>Quora</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    </tbody>
+  </table>
  
  
