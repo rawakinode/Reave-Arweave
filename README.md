@@ -50,6 +50,10 @@ Reave includes writing and information sharing platforms such as blogs, telegra.
   </table>
 
 
+# Profit Sharing Token (PST)
+
+The Profit Sharing Token (PST) is Arweave's newest way to make a Decentralized Application in order to provide long-term profits to all user elements. PST uses tokens created by application developers through SmartWeave smart contracts. Reave uses a token with the name Reave Token (REV). This token will not be used by Author and Reader. Rather it will be shared with Investors who want to benefit from the Reave platform. The number of tokens currently available is 1 million REV.
+
 # Incentive Scenarios
 
 Similar to Steemit, Reave also has an incentive and profit sharing system. The incentive system is carried out by one user with another user through their writing. The profit sharing system is the result of sending the incentive to the Investor. Let's say Author A writes and publishes stories on Reave. Then Reader B is satisfied with the writings of Author A and sends an incentive in the form of crypto currency that is 1 AR (Arweave) to Author A. Reader B will incur a profit sharing fee (for example: 0.1 AR) and blockchain transaction fees (for example: 0.000000345 AR ). If added together, Reader B needs 1.100000345 AR to send 1 time incentive. Readers get information and benefit from reading, writers benefit from incentives, and investors benefit from the profit sharing costs of each transaction.
