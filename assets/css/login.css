@@ -1,0 +1,22 @@
+.login-clean {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: #efefef;
+}
+
+form {
+  top: 20%;
+  position: relative;
+}
+
+.lgn {
+  background-color: rgb(46,46,46);
+  color: white;
+  border-radius: 20px;
+}
+
+.lgn:hover {
+  background-color: rgb(145,145,145);
+}
+

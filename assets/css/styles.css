@@ -1,0 +1,145 @@
+.titlelink {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: initial;
+}
+
+.author {
+  border-bottom: 1px solid #f2f2f2;
+  border-top: 1px solid #f2f2f2;
+}
+
+.titlelink:hover {
+  color: rgb(58,58,58);
+}
+
+.ql-editor {
+  min-height: 300px;
+}
+
+.ql-toolbar {
+  background-color: #f6f6f6;
+  max-width: 800px;
+  margin: auto;
+}
+
+#editors {
+  font-size: inherit;
+  font-family: 'Aleo';
+  max-width: 800px;
+  margin: auto;
+  background-color: #fcfcfc;
+  padding: 20px;
+  border: 1px solid #e6e6e6;
+}
+
+.ql-formats {
+  margin-right: 10px !important;
+}
+
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+
+#myTitle {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  text-decoration: underline;
+}
+
+.btnPreview {
+  color: rgb(77,77,77) !important;
+  background-color: rgb(205,205,205) !important;
+  border-radius: 20px;
+}
+
+.btnPreview:hover {
+  color: white !important;
+  background-color: black !important;
+}
+
+.ql-editor p {
+  margin-bottom: 15px;
+}
+
+.dropdownuser {
+  background-color: rgb(42,42,42) !important;
+  border-radius: 20px !important;
+  padding: 5px 10px;
+  color: rgb(219,219,219);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.dropdownuser:hover {
+  background-color: rgb(255,255,255) !important;
+  color: rgb(28,28,28);
+  text-decoration: none !important;
+}
+
+.header-log-btn {
+  background-color: rgb(38,38,38);
+  border: 1px solid white;
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: rgb(255,255,255);
+  font-size: 14px;
+  margin-right: 10px;
+  font-family: 'Source Sans Pro';
+}
+
+.header-log-btn:hover {
+  background-color: rgb(255,255,255);
+  color: black;
+}
+
+.newstory-btn {
+  background-color: white;
+  color: black;
+  border-radius: 20px !important;
+}
+
+.dropdowncat {
+  color: rgb(184,184,184);
+}
+
+.dropdowncat:hover {
+  color: rgb(56,56,56);
+  text-decoration: none;
+}
+
+.editprofilbtn {
+  background-color: rgb(250,250,250);
+  font-family: 'Source Sans Pro';
+  font-size: 12px;
+  color: rgb(151,151,151);
+}
+
+.lastactivity {
+  font-size: 14px;
+  line-height: 0.8;
+}
+
+.btneditprofilok {
+  background-color: black;
+  color: white;
+  border-radius: 20px;
+}
+
+.btneditprofilok:hover {
+  background-color: rgb(229,228,228);
+  color: rgb(33,33,33);
+}
+
+.circleimageprofil {
+  border-radius: 50%;
+  width: 200px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+}
+
