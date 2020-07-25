@@ -36,7 +36,7 @@ Reave includes writing and information sharing platforms such as blogs, telegra.
         </tr>
      <tr>
             <td>Steemit</td>
-            <td>-</td>
+            <td>&#10004;</td>
             <td>&#10004;</td>
             <td>-</td>
         </tr>
