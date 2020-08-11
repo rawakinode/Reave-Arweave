@@ -22,7 +22,7 @@ async function checkprofileavailable() {
         })
 
         if (contx.length > 0) {
-            console.log('Profile updated');
+            //console.log('Profile updated');
         }else{
 
               $.confirm({
@@ -51,8 +51,10 @@ async function addr(){
     await balancechecking(myAddress);
 }
 
+//Get PST Holder
+var idcontract;
 async function getPstHolder(){
-  var idcontract = 'kxvgKIaAzpmecguWz9vFGyyiLtPLVee3ROPMVQRyJGs';
+  idcontract = 'BX2x3nm16zzOAgoneNqPeVQ02PY3teTs_5aiYAuuALU';
   return SmartWeaveSDK.readContract(arweave, idcontract).then(state => {return state});
 }
 
@@ -65,7 +67,7 @@ async function nextPst() {
     let fee = (result / 1000000000000);
 
     for (const property in pstHolderBalance) {
-      console.log(`${property}: ${pstHolderBalance[property]}`);
+      //console.log(`${property}: ${pstHolderBalance[property]}`);
       i += 1;
     }
     var pstfee = Number(i) * Number(fee);
@@ -131,6 +133,22 @@ function uploadCover (files) {
             imgBase64 = ev.target.result;
             document.getElementById("showCover").src = ev.target.result;
 
+            var canvas = document.getElementById('canvasx');
+            var context = canvas.getContext("2d");
+            var image = new Image();
+            image.onload = function() {
+                  canvas.width = 800;
+                  canvas.height = (800 * image.height) / image.width;
+                //context.clearRect(0, 0, 600, (600 * canvas.height) / canvas.width);
+                context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+            	var newcan = document.getElementById('canvasx');
+            	imgBase64 = newcan.toDataURL('image/jpeg', 0.5);
+            	//console.log(imgBase64);
+
+            };
+            image.src = ev.target.result;
+
         } catch (err) {
             alert('Error logging in: ' + err)
         }
@@ -156,24 +174,11 @@ async function Publish(){
         e = metadescription;
     }
 
-    console.log(a);
-    console.log(b);
-    console.log(JSON.stringify(b));
-    console.log(c);
-    console.log(d);
-    console.log(e);
-    console.log(f);
-    console.log(g);
-    console.log(v);
-
     var xx = JSON.stringify(b);
     var xc = xx+'uidfsvydfydfsiu8df9usds9gu89fsxxx{"cover":"'+c+'"}uidfsvydfydfsiu8df9usds9gu89fsxxx{"html":"'+html+'"}';
     let dd = xc.split('uidfsvydfydfsiu8df9usds9gu89fsxxx');
 
     var random = makeid(20);
-    console.log(dd);
-    console.log(xc);
-    console.log(random);
 
     if(a === 'Write your title here...' || a === ''){
         errorpopup('Write title !');
@@ -189,10 +194,8 @@ async function Publish(){
         let feepst = await nextPst();
         var fee = await feechecking(xc);
         var bal = localStorage.getItem("reave-balance");
-        console.log(fee);
-        console.log(bal);
-        console.log(feepst);
-        let pstreward = '0.01'; //reward to pst holder
+
+        let pstreward = '0.1'; //reward to pst holder
         var totalfee = Number(feepst.pstfee) + Number(fee) + Number(pstreward);
 
         if(bal < totalfee){
@@ -236,7 +239,7 @@ async function balancechecking(e){
         let winston = balance;
         let ar = arweave.ar.winstonToAr(balance);
 
-        console.log(ar);
+        //console.log(ar);
         localStorage.setItem("reave-balance", ar);
     });
 
@@ -266,16 +269,16 @@ function makeid(length) {
 async function nextPublish(aa, bb, cc, dd, ee, ff, gg, hh){
 
     var jwk = JSON.parse(localStorage.getItem("reave-key"));
-          console.log(jwk);
+          //console.log(jwk);
 
     let m = hh.pstHolderBalance;
     var times = Date.now();
     for(const h in m ){
 
-        console.log(`${h}: ${m[h]}`);
-        var rewardforpst = '0.01';
+        //console.log(`${h}: ${m[h]}`);
+        var rewardforpst = '0.1';
         var calc = (`${m[h]}` / 1000000 ) * rewardforpst;
-        console.log(calc);
+        //console.log(calc);
         let transaction = await arweave.createTransaction({
         target: `${h}`,
         quantity: arweave.ar.arToWinston(calc)
@@ -284,7 +287,9 @@ async function nextPublish(aa, bb, cc, dd, ee, ff, gg, hh){
         transaction.addTag('App-Name', 'Reave-Apps')
         transaction.addTag('App-Version', '1.0')
         transaction.addTag('Reave-Type', 'pst')
+        transaction.addTag('Reave-Contract', idcontract)
         transaction.addTag('Reave-Stamp', times.toString())
+
 
         await arweave.transactions.sign(transaction, jwk);
         const response = await arweave.transactions.post(transaction);
@@ -311,10 +316,11 @@ async function nextPublish(aa, bb, cc, dd, ee, ff, gg, hh){
           await arweave.transactions.sign(transaction, jwk);
           const response = await arweave.transactions.post(transaction);
 
-          successpopup('Success publish! wait for few minutes !');
+          publishTag(aa, bb, cc, dd, ee, ff, gg, hh, transaction.id);
+          //successpopup('Success publish! wait for few minutes !');
 
           //hideloading
-         document.getElementById('loading').style.display = 'none';
+         //document.getElementById('loading').style.display = 'none';
 
     } catch (e) {
       //hideloading
@@ -322,4 +328,39 @@ async function nextPublish(aa, bb, cc, dd, ee, ff, gg, hh){
      console.log(e);
      errorpopup('Failed, please try again !');
     }
+}
+
+async function publishTag(aa, bb, cc, dd, ee, ff, gg, hh, ii) {
+  var jwk = JSON.parse(localStorage.getItem("reave-key"));
+        //console.log(jwk);
+        try {
+            let transaction = await arweave.createTransaction({
+                data: imgBase64
+              }, jwk);
+
+                transaction.addTag('App-Name', 'Reave-Apps-Demo')
+                transaction.addTag('App-Version', '1.0')
+                transaction.addTag('Reave-Type', 'Tags-Story')
+                transaction.addTag('Reave-Story-Id', gg)
+                transaction.addTag('Reave-Title', aa)
+                transaction.addTag('Reave-Category', cc)
+                transaction.addTag('Reave-Desc', dd)
+                transaction.addTag('Reave-Key', ee)
+                transaction.addTag('Reave-Status', 'Actived')
+                transaction.addTag('Reave-Stamp', ff.toString())
+                transaction.addTag('Reave-Content-Tx', ii)
+
+                await arweave.transactions.sign(transaction, jwk);
+                const response = await arweave.transactions.post(transaction);
+
+                successpopup('Success publish! wait for few minutes !');
+
+                //hideloading
+               document.getElementById('loading').style.display = 'none';
+        } catch (e) {
+            //hideloading
+           document.getElementById('loading').style.display = 'none';
+           //console.log(e);
+           errorpopup('Failed, please try again !');
+        }
 }

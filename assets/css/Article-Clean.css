@@ -101,3 +101,16 @@ label {
   font-weight: 100 !important;
 }
 
+.footericon {
+  padding: 10px 13px;
+  border-radius: 20px;
+  border: 1px solid white;
+  cursor: pointer;
+  margin-right: 10px;
+  color: white;
+}
+
+.footericon:hover {
+  background-color: rgb(29,52,104);
+}
+

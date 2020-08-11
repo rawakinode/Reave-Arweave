@@ -2,8 +2,9 @@
 listPST();
 
 //Get PST Holder
+var idcontract;
 async function getPstHolder(){
-  var idcontract = 'kxvgKIaAzpmecguWz9vFGyyiLtPLVee3ROPMVQRyJGs';
+  idcontract = 'BX2x3nm16zzOAgoneNqPeVQ02PY3teTs_5aiYAuuALU';
   return SmartWeaveSDK.readContract(arweave, idcontract).then(state => {return state});
 }
 
@@ -13,7 +14,7 @@ async function listPST(){
         var m = await getPstHolder();
         let k = m.balances;
         for (const x in k) {
-          console.log(`${x}: ${k[x]}`);
+          //console.log(`${x}: ${k[x]}`);
           var t = '<tr><td>'+`${x}`+'</td><td>'+`${k[x]}`+'</td></tr>';
           $('#tablebody').append(t);
         }
@@ -38,13 +39,21 @@ async function getLastPstReward() {
                expr2: "Reave-Apps"
              },
              expr2: {
-                 op:"equals",
-                 expr1:"Reave-Type",
-                 expr2: "pst"
+                 op: "and",
+                 expr1: {
+                   op: "equals",
+                   expr1: "Reave-Contract",
+                   expr2: idcontract
+                 },
+                 expr2: {
+                     op:"equals",
+                     expr1:"Reave-Type",
+                     expr2: "pst"
+                 }
              }
          })
 
-         console.log(transaction);
+         //console.log(transaction);
          var m = transaction;
          for (const n of m){
              try {
@@ -58,7 +67,7 @@ async function getLastPstReward() {
 
                var u = '<tr><td>'+times+'</td><td>'+pst+'</td><td>'+target+'</td></tr>';
                $('#lastxbody').append(u);
-               
+
              } catch (e) {
 
              }

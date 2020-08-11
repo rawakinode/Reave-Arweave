@@ -10,7 +10,7 @@ async function getData() {
         let winston = balance;
         ar = arweave.ar.winstonToAr(balance);
           document.getElementById('balance').innerText = ar+' AR';
-          console.log(ar);
+          //console.log(ar);
         });
 
           const contx = await arweave.arql({
@@ -28,18 +28,25 @@ async function getData() {
               }
         })
 
-        console.log(contx);
+        //console.log(contx);
+
+
         if (contx.length > 0) {
-            const profileTx     = await arweave.transactions.get(contx[0]);
-            const profileTxData = profileTx.get('data', { decode: true, string: true });
-            console.log(profileTxData);
-            let profileTxDatare = profileTxData.split('hcseu83h387svlnv8');
-            console.log(profileTxDatare[0]);
-            document.getElementById('profilename').innerText = profileTxDatare[0];
-            document.getElementById('usernameprofil').innerText = profileTxDatare[1];
-            document.getElementById('profildescription').innerText = profileTxDatare[2];
+            try {
+                const profileTx     = await arweave.transactions.get(contx[0]);
+                const profileTxData = profileTx.get('data', { decode: true, string: true });
+                //console.log(profileTxData);
+                let profileTxDatare = profileTxData.split('hcseu83h387svlnv8');
+                console.log(profileTxDatare[0]);
+                document.getElementById('profilename').innerText = profileTxDatare[0];
+                document.getElementById('usernameprofil').innerText = profileTxDatare[1];
+                document.getElementById('profildescription').innerText = profileTxDatare[2];
+            } catch (e) {
+
+            }
+
         }else {
-            console.log('Profil not set');
+            //console.log('Profil not set');
         }
 
     } catch (e) {
@@ -65,17 +72,17 @@ async function getLastTrx() {
               }
         })
 
-        console.log(contx);
+        //console.log(contx);
         let contxe = contx.slice(0, 10);
 
         for(const e in contxe){
 
             try {
-                console.log(contx[e]);
+                //console.log(contx[e]);
                 const dataTx = await arweave.transactions.get(contx[e]);
-                console.log(dataTx);
+              //  console.log(dataTx);
                 var type = getTag(dataTx, 'Reave-Type');
-                console.log(type);
+                //console.log(type);
                 var mystamp = getTag(dataTx, 'Reave-Stamp');
                 var times = mystamp.substring(0, 10);
                 var date = moment.unix(times).format("MMM Do YY");
@@ -160,9 +167,6 @@ async function saveProfilAll(){
        }
    }
 
-    console.log(n);
-    console.log(u);
-    console.log(d);
 
 }
 

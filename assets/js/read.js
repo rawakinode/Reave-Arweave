@@ -12,7 +12,7 @@ async function balancechecking(e){
             let winston = balance;
             let ar = arweave.ar.winstonToAr(balance);
 
-            console.log(ar);
+            //console.log(ar);
             localStorage.setItem("reave-balance", ar);
         });
     } catch (e) {
@@ -21,9 +21,10 @@ async function balancechecking(e){
 
 }
 
+//Get PST Holder
+var idcontract;
 async function getPstHolder(){
-  //REV token = BX2x3nm16zzOAgoneNqPeVQ02PY3teTs_5aiYAuuALU
-  var idcontract = 'kxvgKIaAzpmecguWz9vFGyyiLtPLVee3ROPMVQRyJGs';
+  idcontract = 'BX2x3nm16zzOAgoneNqPeVQ02PY3teTs_5aiYAuuALU';
   return SmartWeaveSDK.readContract(arweave, idcontract).then(state => {return state});
 }
 
@@ -36,7 +37,7 @@ async function nextPst() {
     let fee = (result / 1000000000000);
 
     for (const property in pstHolderBalance) {
-      console.log(`${property}: ${pstHolderBalance[property]}`);
+      //console.log(`${property}: ${pstHolderBalance[property]}`);
       i += 1;
     }
     var pstfee = Number(i) * Number(fee);
@@ -52,7 +53,7 @@ async function loadStory(){
 
     try {
         getURL = (window.location.search).trim();
-        console.log(getURL.slice(1, 44));
+        //console.log(getURL.slice(1, 44));
 
         const dataTx = await arweave.transactions.get(getURL.slice(1, 44));
         author = await arweave.wallets.ownerToAddress(dataTx.owner);
@@ -75,7 +76,7 @@ async function loadStory(){
           if (tipped === false) {
               tipped = '0';
           }else {
-            tipped = Number(tipped) * 0.005;
+            tipped = Number(tipped) * 0.5;
           }
 
           if (profile === false) {
@@ -89,20 +90,13 @@ async function loadStory(){
           document.getElementById('reavedate').innerText = date;
           document.getElementById('usericon').innerHTML = '<i class="fa fa-user-o" aria-hidden="true"></i><a class="aut" href="author.html?'+author+'" style="font-family: monospace;">   '+profile+'</a>';
 
-          var panelarticle = '<a class="badge badge-dark text-white" id="storycategory">'+cate+'</a> <a class="badge badge-success text-white" id="tipped">'+tipped+' AR</a><br/><br/><button class="btn tip" type="button" style="font-size: 12px;margin-right: 3px;" onclick="giveMeTip()"><i class="fa fa-star"></i>  Give a Tip</button><button class="btn tip" type="button" style="font-size: 12px;padding-right: 7px;padding-bottom: 3px;margin-right: 1px;padding-left: 10px;" onclick="shareFacebook()"><i class="fa fa-facebook"></i></button><button class="btn tip" type="button" style="font-size: 12px;padding-right: 5px;padding-bottom: 3px;margin-right: 2px;padding-left: 8px;" onclick="shareTwitter()"><i class="fa fa-twitter"></i></button> <button class="btn tip" type="button" style="font-size: 12px;padding-right: 5px;padding-bottom: 3px;margin-right: 2px;padding-left: 8px;" onclick="shareMail()"><i class="fa fa-envelope"></i></button><button class="btn tip" type="button" style="font-size: 12px;padding-right: 5px;padding-bottom: 3px;margin-right: 2px;padding-left: 8px;" onclick="shareLinkedin()"><i class="fa fa-linkedin"></i></button>';
+          var panelarticle = '<a class="badge badge-dark text-white" id="storycategory">'+cate+'</a> <a class="badge badge-success text-white" id="tipped">'+tipped+' AR</a><br/><br/><button class="btn tip" id="tipeds" type="button" style="font-size: 12px;margin-right: 3px;" onclick="giveMeTip()"><i class="fa fa-star"></i>  Give a Tip</button><button class="btn tip" type="button" style="font-size: 12px;padding-right: 7px;padding-bottom: 3px;margin-right: 1px;padding-left: 10px;" onclick="shareFacebook()"><i class="fa fa-facebook"></i></button><button class="btn tip" type="button" style="font-size: 12px;padding-right: 5px;padding-bottom: 3px;margin-right: 2px;padding-left: 8px;" onclick="shareTwitter()"><i class="fa fa-twitter"></i></button> <button class="btn tip" type="button" style="font-size: 12px;padding-right: 5px;padding-bottom: 3px;margin-right: 2px;padding-left: 8px;" onclick="shareMail()"><i class="fa fa-envelope"></i></button><button class="btn tip" type="button" style="font-size: 12px;padding-right: 5px;padding-bottom: 3px;margin-right: 2px;padding-left: 8px;" onclick="shareLinkedin()"><i class="fa fa-linkedin"></i></button>';
           document.getElementById('panelarticle').innerHTML = panelarticle;
-
+          document.getElementById('generalcontent').style.backgroundColor = 'white';
           var buttonComment = '<button class="btn tip" type="button" style="font-size: 12px;" onclick="showComment()">Show Comment    <i class="fa fa-comment"></i><br /></button>';
           document.getElementById('commentTab').innerHTML = buttonComment;
 
-
-          console.log(dataTx);
-          console.log(mydata);
-          console.log(mytitle);
-          console.log(author);
-
           let dataAr = mydata.split('uidfsvydfydfsiu8df9usds9gu89fsxxx');
-          console.log(dataAr);
           let dataArDelta = dataAr[0];
           let dataArCover = dataAr[1];
           let dataArCoverArray = JSON.parse(dataArCover);
@@ -110,8 +104,7 @@ async function loadStory(){
           let bao = dataArHtml.substr(9);
           let hoa = bao.slice(0 , -2);
 
-          let searchbase64 = hoa.indexOf("data:image");
-
+          let searchbase64 = hoa.indexOf("Image for post");
           if (searchbase64 < 0) {
               hoa = '<img src="'+dataArCoverArray.cover+'"/><br/><br/>'+hoa;
           }
@@ -131,6 +124,12 @@ async function loadStory(){
           $('head').append('<meta property="twitter:title" content="'+mytitle+'">');
           $('head').append('<meta property="twitter:description" content="'+mydesc+'">');
           $('head').append('<meta property="twitter:image" content="'+dataArCoverArray.cover+'">');
+
+          var rss = localStorage.getItem("reave-address");
+          if (author === rss) {
+              document.getElementById('tipeds').disabled = true;
+
+          }
         }else {
           errorpopup('Story deleted');
         }
@@ -186,7 +185,6 @@ async function checkComment() {
                     var authorComment   = await arweave.wallets.ownerToAddress(commentTx.owner);
                     var id              = e.replace('-','');
                     i += 1;
-                    console.log(id);
                     //var id = e.replace(/[0-9]/g, '');
                     var times = commentTxTime.substring(0, 10);
                     var date = moment.unix(times).startOf('hour').fromNow();
@@ -194,10 +192,6 @@ async function checkComment() {
                     var toAppend = '<div style="margin-bottom: 15px;"> <div class="card"> <div class="card-body"> <div class="author"><i class="fa fa-user-o" style="margin-top:3px;float:left;"></i>   <h5 class="float-left name" style="margin-right: 10px;font-size: 13px;margin-top: 0;margin-bottom: 9px;padding-top: 3px;padding-left: 0px;margin-left: 9px;"><a class="aut" href="author.html?'+authorComment+'" style="font-family: Archivo, sans-serif;">'+authorComment.slice(0,10)+'</a></h5> <p class="name" style="font-size: 13px;margin-top: 0;padding-top: 2px;padding-left: 0px;margin-left: 46px;font-weight: 100;color: rgb(192,192,192);">   '+date+'</p> </div> <p class="card-text"> <xmp style="word-break: break-all;white-space: break-spaces;font-family: inherit;">'+commentTxData+'</xmp> </p> <div><button class="btn tip" style="font-size: 10px;padding: 2px 10px;color:white;" value="'+e+'" onclick="replyComment(this.value)"><i class="fa fa-reply"></i> reply</button> </div> <div id="subcomment'+i+'"></div> </div> </div> </div>';
 
                     $('#listcomment').append(toAppend);
-                    console.log(toAppend);
-                    console.log(commentTxData);
-                    console.log(commentTxFrom);
-                    console.log(commentTxType);
 
                     const transactionx = await arweave.arql({
                        op: "and",
@@ -213,21 +207,26 @@ async function checkComment() {
                        }
                    })
 
-                   console.log(transactionx);
+                   //console.log(transactionx);
 
                    for (const sube of transactionx){
-                       const subcommentTx     = await arweave.transactions.get(sube);
-                       const subcommentTxData = subcommentTx.get('data', { decode: true, string: true });
-                       var subcommentTxType   = getTag(subcommentTx, 'Reave-Type');
-                       var subcommentTxFrom   = getTag(subcommentTx, 'Reave-From-Story-Tx');
-                       var subcommentTxTime   = getTag(subcommentTx, 'Reave-Stamp');
-                       var subauthorComment   = await arweave.wallets.ownerToAddress(subcommentTx.owner);
-                       var subtimes = subcommentTxTime.substring(0, 10);
-                       var subdate = moment.unix(subtimes).startOf('hour').fromNow();
+                      try {
+                            const subcommentTx     = await arweave.transactions.get(sube);
+                            const subcommentTxData = subcommentTx.get('data', { decode: true, string: true });
+                            var subcommentTxType   = getTag(subcommentTx, 'Reave-Type');
+                            var subcommentTxFrom   = getTag(subcommentTx, 'Reave-From-Story-Tx');
+                            var subcommentTxTime   = getTag(subcommentTx, 'Reave-Stamp');
+                            var subauthorComment   = await arweave.wallets.ownerToAddress(subcommentTx.owner);
+                            var subtimes = subcommentTxTime.substring(0, 10);
+                            var subdate = moment.unix(subtimes).startOf('hour').fromNow();
 
-                       var topen = '<div style="margin-top: 15px;"> <div class="card" style="background-color: #fcfcfc;"> <div class="card-body"> <div class="author"><i class="fa fa-user-o" style="margin-top:3px;float:left;"></i>   <h5 class="float-left name" style="margin-right: 10px;font-size: 13px;margin-top: 0;margin-bottom: 9px;padding-top: 3px;padding-left: 0px;margin-left: 9px;"><a class="aut" href="author.html?'+subauthorComment+'" style="font-family: Archivo, sans-serif;">'+subauthorComment.slice(0,10)+'</a></h5> <p class="name" style="font-size: 13px;margin-top: 0;padding-top: 2px;padding-left: 0px;margin-left: 46px;font-weight: 100;color: rgb(192,192,192);">   '+subdate+'</p> </div> <p class="card-text"> <xmp style="word-break: break-all;white-space: break-spaces;font-family: inherit;">'+subcommentTxData+'</xmp> </p> <div><button class="btn tip" style="font-size: 10px;padding: 2px 10px;color:white;" value="'+e+'" onclick="replyComment(this.value)"><i class="fas fa-reply"></i> reply</button> </div> <div id="subcomment'+i+'"></div> </div> </div> </div>';
+                            var topen = '<div style="margin-top: 15px;"> <div class="card" style="background-color: #fcfcfc;"> <div class="card-body"> <div class="author"><i class="fa fa-user-o" style="margin-top:3px;float:left;"></i>   <h5 class="float-left name" style="margin-right: 10px;font-size: 13px;margin-top: 0;margin-bottom: 9px;padding-top: 3px;padding-left: 0px;margin-left: 9px;"><a class="aut" href="author.html?'+subauthorComment+'" style="font-family: Archivo, sans-serif;">'+subauthorComment.slice(0,10)+'</a></h5> <p class="name" style="font-size: 13px;margin-top: 0;padding-top: 2px;padding-left: 0px;margin-left: 46px;font-weight: 100;color: rgb(192,192,192);">   '+subdate+'</p> </div> <p class="card-text"> <xmp style="word-break: break-all;white-space: break-spaces;font-family: inherit;">'+subcommentTxData+'</xmp> </p> <div><button class="btn tip" style="font-size: 10px;padding: 2px 10px;color:white;" value="'+e+'" onclick="replyComment(this.value)"><i class="fas fa-reply"></i> reply</button> </div> <div id="subcomment'+i+'"></div> </div> </div> </div>';
 
-                       $('#subcomment'+i).append(topen);
+                            $('#subcomment'+i).append(topen);
+                      } catch (e) {
+
+                      }
+
 
                    }
 
@@ -287,34 +286,27 @@ async function submitComment() {
           let feewiston = (result / 1000000000000);
 
           let feepst = await nextPst();
-          let pstreward = '0.01'; //reward to pst holder
+          let pstreward = '0.1'; //reward to pst holder
           let finalfee = Number(feewiston) + Number(feepst.pstfee) + Number(pstreward);
           let arbalance = localStorage.getItem("reave-balance");
-
-          console.log(arbalance);
-          console.log(finalfee);
-          console.log(feepst);
-          console.log(feewiston);
 
           if (arbalance < finalfee) {
               errorpopup('insufficient balance');
               //hideloading
              document.getElementById('loading').style.display = 'none';
-             console.log(e);
           }else{
 
             const getURL = (window.location.search).trim();
             var times = Date.now();
             var jwk = JSON.parse(localStorage.getItem("reave-key"));
-            console.log(jwk);
 
             try {
                   let m = feepst.pstHolderBalance;
                   for(const h in m ){
-                      console.log(`${h}: ${m[h]}`);
-                      var rewardforpst = '0.01';
+
+                      var rewardforpst = '0.1';
                       var calc = (`${m[h]}` / 1000000 ) * rewardforpst;
-                      console.log(calc);
+
                       let transaction = await arweave.createTransaction({
                       target: `${h}`,
                       quantity: arweave.ar.arToWinston(calc)
@@ -323,6 +315,7 @@ async function submitComment() {
                       transaction.addTag('App-Name', 'Reave-Apps')
                       transaction.addTag('App-Version', '1.0')
                       transaction.addTag('Reave-Type', 'pst')
+                      transaction.addTag('Reave-Contract', idcontract)
                       transaction.addTag('Reave-Stamp', times.toString())
 
                       await arweave.transactions.sign(transaction, jwk);
@@ -343,7 +336,7 @@ async function submitComment() {
 
                       await arweave.transactions.sign(transaction, jwk);
                       const response = await arweave.transactions.post(transaction);
-                      console.log(response.status);
+                      //console.log(response.status);
                       if (response.status === 200) {
                           successpopup('Comment sent! Wait for few minutes to show your comment');
 
@@ -394,8 +387,8 @@ async function sendTipNext(){
     var times = Date.now();
     try {
           let feepst = await nextPst();
-          let pstreward = '0.001'; //reward to pst holder
-          let tipreward = '0.005'; //reward to authors
+          let pstreward = '0.1'; //reward to pst holder
+          let tipreward = '0.5'; //reward to authors
           let finalfee = Number(tipreward) + Number(feepst.pstfee) + Number(pstreward);
           let arbalance = localStorage.getItem("reave-balance");
           //check feechecking
@@ -408,10 +401,10 @@ async function sendTipNext(){
 
                 let m = feepst.pstHolderBalance;
                 for(const h in m ){
-                    console.log(`${h}: ${m[h]}`);
-                    var rewardforpst = '0.01';
+                    //console.log(`${h}: ${m[h]}`);
+                    var rewardforpst = '0.1';
                     var calc = (`${m[h]}` / 1000000 ) * rewardforpst;
-                    console.log(calc);
+
                     let transaction = await arweave.createTransaction({
                     target: `${h}`,
                     quantity: arweave.ar.arToWinston(calc)
@@ -420,6 +413,7 @@ async function sendTipNext(){
                     transaction.addTag('App-Name', 'Reave-Apps')
                     transaction.addTag('App-Version', '1.0')
                     transaction.addTag('Reave-Type', 'pst')
+                    transaction.addTag('Reave-Contract', idcontract)
                     transaction.addTag('Reave-Stamp', times.toString())
 
                     await arweave.transactions.sign(transaction, jwk);
@@ -440,9 +434,9 @@ async function sendTipNext(){
 
                 await arweave.transactions.sign(transaction, jwk);
                 const response = await arweave.transactions.post(transaction);
-                console.log(response.status);
-                console.log(response);
-                console.log(transaction);
+                //console.log(response.status);
+                //console.log(response);
+                //console.log(transaction);
 
                 if (response.status === 200) {
                     successpopup('Success send tip .')
@@ -499,16 +493,16 @@ async function getNameProfile(e){
               }
         })
 
-           console.log(contx);
+           //console.log(contx);
            if (contx.length > 0) {
                const profileTx     = await arweave.transactions.get(contx[0]);
                const profileTxData = profileTx.get('data', { decode: true, string: true });
-               console.log(profileTxData);
+               //console.log(profileTxData);
                let profileTxDatare = profileTxData.split('hcseu83h387svlnv8');
                return profileTxDatare[0];
 
            }else {
-               console.log('Profil not set');
+               //console.log('Profil not set');
            }
     } catch (e) {
         return false;
@@ -551,7 +545,7 @@ async function getTipAmount(trx){
               }
         })
 
-           console.log(contx);
+           //console.log(contx);
            return contx.length;
     } catch (e) {
         return false;

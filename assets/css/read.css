@@ -5,6 +5,7 @@
 
 #mainreadcontent img {
   width: 100%;
+  border-radius: 10px;
 }
 
 #mainreadcontent blockquote {
@@ -105,5 +106,75 @@ pre {
   background-color: #2e2e2e;
   color: white;
   padding: 10px;
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 900px !important;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .offset-xl-2 {
+    margin-left: 6.666667%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .col-xl-8 {
+    flex: 0 0 86.666667%;
+    max-width: 86.666667%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .container {
+    max-width: 900px !important;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .offset-xl-2 {
+    margin-left: 6.666667%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .col-xl-8 {
+    flex: 0 0 86.666667%;
+    max-width: 86.666667%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    max-width: 650px !important;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .offset-xl-2 {
+    margin-left: 6.666667%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .col-xl-8 {
+    flex: 0 0 86.666667%;
+    max-width: 86.666667%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .offset-xl-2 {
+    margin-left: 3.666667%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .col-xl-8 {
+    flex: 0 0 92.666667%;
+    max-width: 92.666667%;
+  }
 }
 

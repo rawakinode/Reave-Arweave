@@ -1,8 +1,8 @@
 var getURL = (window.location.search).trim();
 if(getURL.slice(1,9) === 'category'){
-    console.log(getURL);
+    //console.log(getURL);
     var ur = getURL.slice(9,12);
-    console.log(ur);
+    //console.log(ur);
     if (ur === '=1') {
         getCategory('1');
     }else if (ur === '=2') {
@@ -38,11 +38,11 @@ async function getStory() {
              expr2: {
                  op:"equals",
                  expr1:"Reave-Type",
-                 expr2: "Story"
+                 expr2: "Tags-Story"
              }
          })
 
-         console.log(transaction);
+         //console.log(transaction);
 
          //sessionStorage.removeItem("atrans");
          //var atrans = transaction.slice(0,2);
@@ -98,12 +98,12 @@ async function getCategory(n) {
                    expr2: {
                        op:"equals",
                        expr1:"Reave-Type",
-                       expr2: "Story"
+                       expr2: "Tags-Story"
                    }
              }
          })
 
-         console.log(transaction);
+         //console.log(transaction);
 
          //sessionStorage.removeItem("atrans");
          //var atrans = transaction.slice(0,2);
@@ -137,7 +137,7 @@ async function showStory(){
                 const dataTx = await arweave.transactions.get(x);
                 var mystatus = getTag(dataTx, 'Reave-Status');
                 var myid     = getTag(dataTx, 'Reave-Story-Id');
-                console.log(storyidarray.length);
+                //console.log(storyidarray.length);
 
                 if (storyidarray.length === 0) {
                     //storyidarray.push(myid);
@@ -156,20 +156,15 @@ async function showStory(){
                     storyidarray.push(myid);
                     if (mystatus !== 'Deleted') {
                             const mydata = dataTx.get('data', { decode: true, string: true });
+
                             var author = await arweave.wallets.ownerToAddress(dataTx.owner);
+
                             var profile = await getNameProfile(author);
 
                             if (profile === false) {
                                profile = author.slice(0,15);
                             }
 
-                            //get tip amount
-                            var tipped = await getTipAmount(x);
-                            if (tipped === false) {
-                                tipped = '0';
-                            }else {
-                              tipped = Number(tipped) * 0.005;
-                            }
 
                             var mytitle = getTag(dataTx, 'Reave-Title');
                             var mycategory = getTag(dataTx, 'Reave-Category');
@@ -177,19 +172,19 @@ async function showStory(){
                             var mydesc = getTag(dataTx, 'Reave-Desc');
                             var mykey = getTag(dataTx, 'Reave-Key');
                             var mystamp = getTag(dataTx, 'Reave-Stamp');
+                            var maintx = getTag(dataTx, 'Reave-Content-Tx');
                             var times = mystamp.substring(0, 10);
                             var date = moment.unix(times).format("MMM Do YY");
 
-                            let dataAr = mydata.split('uidfsvydfydfsiu8df9usds9gu89fsxxx');
-                            console.log(dataAr);
-                            let dataArDelta = dataAr[0];
-                            let dataArCover = dataAr[1];
-                            let dataArCoverArray = JSON.parse(dataArCover);
-                            let dataArHtml  = dataAr[2];
+                            //get tip amount
+                            var tipped = await getTipAmount(maintx);
+                            if (tipped === false) {
+                                tipped = '0';
+                            }else {
+                              tipped = Number(tipped) * 0.5;
+                            }
 
-                            console.log(dataArCoverArray);
-
-                            var toAppend = '<div class="col-sm-6 item" id="storyitem"> <div class="row boxarticle"> <div class="col-md-12 col-lg-5 imagebox"><a href="read.html?'+x+'"><img class="img-fluid" id="storythumbnail" src="'+dataArCoverArray.cover+'" /></a></div> <div class="col rightbox"><a id="storytitle" class="titlelink boxtitle" href="read.html?'+x+'">'+mytitle.slice(0,100)+'</a> <div class="author" style="margin-top: 10px;"><i class="fa fa-user-o float-left" aria-hidden="true" style="margin: 3px;"></i> <a href="author.html?'+author+'" style="color:black;"><h5 class="float-left name" id="storyauthor" style="font-size: 13px;margin-top: 0;margin-bottom: 3px;padding-top: 3px;padding-left: 0px;margin-left: 16px; margin-right:10px;">'+profile+'</h5></a> <p id="storydate" class="name" style="font-size: 13px;margin-top: 0;margin-bottom: 3px;padding-top: 2px;padding-left: 0px;margin-left: 28px;font-weight: 100;color: rgb(192,192,192);"> '+date+'</p> </div> <p id="storydesc" class="description boxdesc">'+mydesc.slice(0, 120)+'</p><a class="badge badge-dark text-white" id="storycategory">'+cate+'</a> <a class="badge badge-success text-white" id="tipped">'+tipped+' AR</a></div> </div> </div>';
+                            var toAppend = '<div class="col-sm-6 item" id="storyitem"> <div class="row boxarticle"> <div class="col-md-12 col-lg-5 imagebox"><a href="read.html?'+maintx+'"><img class="img-fluid" id="storythumbnail" src="'+mydata+'" /></a></div> <div class="col rightbox"><a id="storytitle" class="titlelink boxtitle" href="read.html?'+maintx+'">'+mytitle.slice(0,100)+'</a> <div class="author" style="margin-top: 10px;"><i class="fa fa-user-o float-left" aria-hidden="true" style="margin: 3px;"></i> <a href="author.html?'+author+'" style="color:black;"><h5 class="float-left name" id="storyauthor" style="font-size: 13px;margin-top: 0;margin-bottom: 3px;padding-top: 3px;padding-left: 0px;margin-left: 16px; margin-right:10px;">'+profile+'</h5></a> <p id="storydate" class="name" style="font-size: 13px;margin-top: 0;margin-bottom: 3px;padding-top: 2px;padding-left: 0px;margin-left: 28px;font-weight: 100;color: rgb(192,192,192);"> '+date+'</p> </div> <p id="storydesc" class="description boxdesc">'+mydesc.slice(0, 120)+'</p><a class="badge badge-dark text-white" id="storycategory">'+cate+'</a> <a class="badge badge-success text-white" id="tipped">'+tipped+' AR</a></div> </div> </div>';
                             $('#storylist').append(toAppend);
 
                             count += 1;
@@ -278,16 +273,16 @@ async function getNameProfile(e){
               }
         })
 
-           console.log(contx);
+           //console.log(contx);
            if (contx.length > 0) {
                const profileTx     = await arweave.transactions.get(contx[0]);
                const profileTxData = profileTx.get('data', { decode: true, string: true });
-               console.log(profileTxData);
+               //console.log(profileTxData);
                let profileTxDatare = profileTxData.split('hcseu83h387svlnv8');
                return profileTxDatare[0];
 
            }else {
-               console.log('Profil not set');
+               //console.log('Profil not set');
            }
     } catch (e) {
         return false;
@@ -311,7 +306,7 @@ async function getTipAmount(trx){
               }
         })
 
-           console.log(contx);
+           //console.log(contx);
            return contx.length;
     } catch (e) {
         return false;
