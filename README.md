@@ -69,3 +69,7 @@ Similar to Steemit, Reave also has an incentive and profit sharing system. The i
 For <strong>writers</strong>, the best incentive scenario is to get lots of incentives from their readers. For example, every article they publish costs 0.1 AR. The author shares their 5 interesting stories, the total cost of 0.5 AR. Suppose each story generates 1 tip from the reader, so the total incentive provided is 5 AR. If reduced by the cost of publishing the story is 5 AR - 0.5 AR = 4.5 AR. In this scenario, the writer benefits a lot.
 
 For <strong>investors</strong>, they will benefit from the costs of each transaction made on the Reave platform. Some of them are when writers publish their stories, when writers and readers write comments, and when readers give incentives to Author. For example, in a month there are 100 writings published, 100 incentives, and 300 comments. So the total profit of investors is 0.1 x (100 + 100 + 300) = 50 AR in a month. If in a year, then 50 x 12 = 600 AR every 1 year.
+
+# Pitch Deck
+
+https://drive.google.com/file/d/1k-pH6gbQgEcgInkpNYd2rMuOSt5PNgzg/view?usp=sharing
