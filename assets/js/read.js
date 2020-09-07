@@ -362,7 +362,7 @@ async function submitComment() {
 function giveMeTip() {
       $.confirm({
       title: 'Confirm!',
-      content: 'Are you sure send tip 0.005 AR ?',
+      content: 'Are you sure send tip 0.5 AR ?',
       buttons: {
           confirm: function () {
               var loginstat = localStorage.getItem("reave-login");

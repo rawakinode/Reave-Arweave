@@ -27,33 +27,93 @@ if(getURL.slice(1,9) === 'category'){
 
 //Get story
 async function getStory() {
+
+    let spamData = await getFilterSpam();
+    let storyTx = await getAllStoryTx();
+    console.log(spamData);
+    console.log(storyTx);
+
+    if (storyTx !== false && spamData !== false) {
+          //fungsi filter data story dengan data spam
+          var filterTransaction = storyTx.filter(
+             function(e) {
+               return this.indexOf(e) < 0;
+             },spamData
+         );
+
+        sessionStorage.setItem("atrans", JSON.stringify(filterTransaction));
+        showStory();
+    }else {
+        errorpopup('Failed fetch data story and spam !');
+    }
+
+}
+
+//Fungsi mendapatkan semua transaksi story
+async function getAllStoryTx() {
     try {
         const transaction = await arweave.arql({
              op: "and",
              expr1: {
                op: "equals",
                expr1: "App-Name",
-               expr2: "Reave-Apps-Demo"
+               expr2: "Reave-Apps"
              },
              expr2: {
-                 op:"equals",
-                 expr1:"Reave-Type",
-                 expr2: "Tags-Story"
+                 op: "and",
+                 expr1: {
+                   op: "equals",
+                   expr1: "App-Version",
+                   expr2: "1.0"
+                 },
+                 expr2: {
+                     op:"equals",
+                     expr1:"Reave-Type",
+                     expr2: "StoryID"
+                 }
              }
          })
 
-         //console.log(transaction);
-
-         //sessionStorage.removeItem("atrans");
-         //var atrans = transaction.slice(0,2);
-
-         if (transaction.length !== '0') {
-           sessionStorage.setItem("atrans", JSON.stringify(transaction));
-           showStory();
-         }
+         return transaction;
 
     } catch (e) {
-        console.log(e);
+        return false;
+    }
+}
+
+//Fungsi untuk mendapatkan Data Transaksi Spam
+async function getFilterSpam() {
+
+    try {
+          const transactionA = await arweave.arql({
+               op: "and",
+               expr1: {
+                 op: "equals",
+                 expr1: "from",
+                 expr2: "OesddStCpX7gW3ZWxO93GnU7wRYjAQIJUA8c7KkID2M"
+               },
+               expr2: {
+                     op: "and",
+                     expr1: {
+                       op: "equals",
+                       expr1: "App-Name",
+                       expr2: "Reave-Apps"
+                     },
+                     expr2: {
+                         op:"equals",
+                         expr1:"Filter",
+                         expr2: "Spam"
+                     }
+               }
+           })
+
+           const getTxData = await arweave.transactions.get(transactionA[0]);
+           const dataFromSpamList = getTxData.get('data', { decode: true, string: true });
+           var wer = JSON.parse(dataFromSpamList);
+           return wer;
+
+    } catch (e) {
+        return false;
     }
 }
 
@@ -86,7 +146,7 @@ async function getCategory(n) {
              expr1: {
                op: "equals",
                expr1: "App-Name",
-               expr2: "Reave-Apps-Demo"
+               expr2: "Reave-Apps"
              },
              expr2: {
                    op: "and",
@@ -103,12 +163,8 @@ async function getCategory(n) {
              }
          })
 
-         //console.log(transaction);
-
-         //sessionStorage.removeItem("atrans");
-         //var atrans = transaction.slice(0,2);
-
          if (transaction.length !== '0') {
+           sessionStorage.removeItem("atrans");
            sessionStorage.setItem("atrans", JSON.stringify(transaction));
            showStory();
          }
@@ -118,110 +174,93 @@ async function getCategory(n) {
     }
 }
 
-//let storyidarray = JSON.parse(sessionStorage.getItem('story-array'));
-let storyidarray = [];
+let databaseStoryList = [];
 //Next show Story
-async function showStory(){
+async function showStory(from){
   //showloading
   document.getElementById('readspinner').style.display = "block";
-    var transaction = JSON.parse(sessionStorage.getItem("atrans"));
+  document.getElementById('loadmore').style.display = 'none';
 
-        var count = 0 ;
-        var hit   = 0 ;
-        //var countforid = 0 ;
-        var availableid = '';
-        for (const i of transaction) {
-            hit += 1;
-              try {
-                let x = i;
-                const dataTx = await arweave.transactions.get(x);
-                var mystatus = getTag(dataTx, 'Reave-Status');
-                var myid     = getTag(dataTx, 'Reave-Story-Id');
-                //console.log(storyidarray.length);
+        var transaction = JSON.parse(sessionStorage.getItem("atrans"));
 
-                if (storyidarray.length === 0) {
-                    //storyidarray.push(myid);
-                    availableid = true;
-                }else{
-                    var oo = checkAvailability(storyidarray,myid);
-                    if (oo === true) {
-                        availableid = false;
-                    }else if(oo === false){
-                        availableid = true;
-                    }
-                }
+        transaction.splice(8, transaction.length);
+        var count = transaction.length ;
+        console.log(count);
+        transaction.forEach(async function(item, index){
+            let dataA = await getStoryTag(item);
+            console.log(dataA);
 
+            if (dataA === false) {
+                count -= 1;
+            }else{
+                const dataTx = await arweave.transactions.get(dataA);
+                const mydata = dataTx.get('data', { decode: true, string: true });
+                var author = await arweave.wallets.ownerToAddress(dataTx.owner);
+                var idstory = getTag(dataTx, 'Reave-Story-Id');
+                var owner    = idstory.slice(0,43);
 
-                if (availableid !== false) {
-                    storyidarray.push(myid);
-                    if (mystatus !== 'Deleted') {
-                            const mydata = dataTx.get('data', { decode: true, string: true });
+                //Mencegah orang lain menduplikasikan transaksi story tag
+                if (author === owner) {
+                      var profile = await getNameProfile(author);
+                      var mytitle = getTag(dataTx, 'Reave-Title');
+                      var mycategory = getTag(dataTx, 'Reave-Category');
+                      var cate = await getCat(mycategory);
+                      var mydesc = getTag(dataTx, 'Reave-Desc');
+                      var mykey = getTag(dataTx, 'Reave-Key');
+                      var mystamp = getTag(dataTx, 'Reave-Stamp');
 
-                            var author = await arweave.wallets.ownerToAddress(dataTx.owner);
+                      var times = mystamp.substring(0, 10);
+                      var date = moment.unix(times).format("MMM Do YY");
 
-                            var profile = await getNameProfile(author);
-
-                            if (profile === false) {
-                               profile = author.slice(0,15);
-                            }
-
-
-                            var mytitle = getTag(dataTx, 'Reave-Title');
-                            var mycategory = getTag(dataTx, 'Reave-Category');
-                            var cate = await getCat(mycategory);
-                            var mydesc = getTag(dataTx, 'Reave-Desc');
-                            var mykey = getTag(dataTx, 'Reave-Key');
-                            var mystamp = getTag(dataTx, 'Reave-Stamp');
-                            var maintx = getTag(dataTx, 'Reave-Content-Tx');
-                            var times = mystamp.substring(0, 10);
-                            var date = moment.unix(times).format("MMM Do YY");
-
-                            //get tip amount
-                            var tipped = await getTipAmount(maintx);
-                            if (tipped === false) {
-                                tipped = '0';
-                            }else {
-                              tipped = Number(tipped) * 0.5;
-                            }
-
-                            var toAppend = '<div class="col-sm-6 item" id="storyitem"> <div class="row boxarticle"> <div class="col-md-12 col-lg-5 imagebox"><a href="read.html?'+maintx+'"><img class="img-fluid" id="storythumbnail" src="'+mydata+'" /></a></div> <div class="col rightbox"><a id="storytitle" class="titlelink boxtitle" href="read.html?'+maintx+'">'+mytitle.slice(0,100)+'</a> <div class="author" style="margin-top: 10px;"><i class="fa fa-user-o float-left" aria-hidden="true" style="margin: 3px;"></i> <a href="author.html?'+author+'" style="color:black;"><h5 class="float-left name" id="storyauthor" style="font-size: 13px;margin-top: 0;margin-bottom: 3px;padding-top: 3px;padding-left: 0px;margin-left: 16px; margin-right:10px;">'+profile+'</h5></a> <p id="storydate" class="name" style="font-size: 13px;margin-top: 0;margin-bottom: 3px;padding-top: 2px;padding-left: 0px;margin-left: 28px;font-weight: 100;color: rgb(192,192,192);"> '+date+'</p> </div> <p id="storydesc" class="description boxdesc">'+mydesc.slice(0, 120)+'</p><a class="badge badge-dark text-white" id="storycategory">'+cate+'</a> <a class="badge badge-success text-white" id="tipped">'+tipped+' AR</a></div> </div> </div>';
-                            $('#storylist').append(toAppend);
-
-                            count += 1;
-                            if (count === 6) {
-                                break;
-                            }
+                      //get tip amount
+                      var tipped = await getTipAmount(idstory);
+                      if (tipped === false) {
+                          tipped = '0';
+                      }else {
+                        tipped = Number(tipped) * 0.5;
                       }
+
+                      let arrayData = '{"storyid":"'+idstory+'", "storytx":"'+item+'", "storytagtx":"'+dataA+'", "author":"'+profile+'", "title":"'+mytitle+'", "category":"'+cate+'", "desc":"'+mydesc+'", "key":"'+mykey+'", "stamp":"'+mystamp+'", "date":"'+date+'", "tip":"'+tipped+'", "thumbnail":"'+mydata+'"}';
+                      var obj = JSON.parse(arrayData);
+
+                      databaseStoryList.push(obj);
+                      sortArray = databaseStoryList.sort(dynamicSort("-stamp"));
+                      //console.log(databaseStoryList);
+
+
+                      count -= 1;
+                      if (count === 0) {
+                          var temporary = JSON.parse(sessionStorage.getItem("atrans"));
+                          temporary = temporary.slice(8);
+                          sessionStorage.removeItem("atrans");
+                          sessionStorage.setItem("atrans", JSON.stringify(temporary));
+
+
+                          if (temporary.length > 0) {
+                              document.getElementById('loadmore').style.display = 'block';
+                          }else{
+                                document.getElementById('loadmore').style.display = 'none';
+                          }
+
+                          await domAppend(sortArray);
+                          sortArray = [];
+                          databaseStoryList = [];
+                          //hideloading
+                          document.getElementById('readspinner').style.display = "none";
+
+                      }
+
+                }else {
+                  count -= 1;
                 }
 
+            }
 
-              } catch (e) {
+        });
 
-              }
-
-        }
-
-        if (transaction.length > 0) {
-            document.getElementById('loadmore').style.display = 'block';
-        }else{
-              document.getElementById('loadmore').style.display = 'none';
-        }
-
-        var t = JSON.parse(sessionStorage.getItem("atrans"));
-        t = t.slice(hit);
-        sessionStorage.removeItem("atrans");
-        sessionStorage.setItem("atrans", JSON.stringify(t));
-
-        //hideloading
-        document.getElementById('readspinner').style.display = "none";
 
 }
 
-function checkAvailability(arr, val) {
-      return arr.some(function (arrVal) {
-          return val === arrVal;
-      });
-}
 
 function getTag(tx, name) {
       let tags = tx.get('tags');
@@ -256,39 +295,58 @@ function getCat(e){
     }
 }
 
-async function getNameProfile(e){
-    try {
-          const contx = await arweave.arql({
-              op: "and",
-              expr1: {
-                op: "equals",
-                  expr1: "from",
-                  expr2: e
-              },
-              expr2: {
-                  op:"equals",
-                  expr1:"Reave-Type",
-                  expr2: "profile"
 
-              }
-        })
+async function getNameProfile(m){
 
-           //console.log(contx);
-           if (contx.length > 0) {
-               const profileTx     = await arweave.transactions.get(contx[0]);
-               const profileTxData = profileTx.get('data', { decode: true, string: true });
-               //console.log(profileTxData);
-               let profileTxDatare = profileTxData.split('hcseu83h387svlnv8');
-               return profileTxDatare[0];
+          try {
+                const contx = await arweave.arql({
+                    op: "and",
+                    expr1: {
+                      op: "equals",
+                        expr1: "from",
+                        expr2: m
+                    },
+                    expr2: {
+                        op:"equals",
+                        expr1:"Reave-Type",
+                        expr2: "profile"
 
-           }else {
-               //console.log('Profil not set');
-           }
-    } catch (e) {
-        return false;
+                    }
+              })
+
+                 if (contx.length > 0) {
+                     const profileTx     = await arweave.transactions.get(contx[0]);
+                     const profileTxData = profileTx.get('data', { decode: true, string: true });
+                     //console.log(profileTxData);
+                     let profileTxDatare = profileTxData.split('hcseu83h387svlnv8');
+                     return profileTxDatare[0];
+
+
+
+                 }else {
+                      return m;
+                 }
+          } catch (e) {
+
+              return m;
+          }
+
+}
+
+//Sort inbox function
+function dynamicSort(property) {
+    var sortOrder = 1;
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    return function (a,b) {
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
     }
 }
 
+//Mendapatkan jumlah tipped
 async function getTipAmount(trx){
     try {
           const contx = await arweave.arql({
@@ -312,3 +370,74 @@ async function getTipAmount(trx){
         return false;
     }
 }
+
+//Mendapatkan story tag terakhir
+async function getStoryTag(i) {
+      try {
+
+            const dataTx = await arweave.transactions.get(i);
+            const mydata = dataTx.get('data', { decode: true, string: true });
+            var author = await arweave.wallets.ownerToAddress(dataTx.owner);
+            var myid     = getTag(dataTx, 'Reave-Story-Id');
+            var owner    = myid.slice(0,43);
+            if (author === owner) {
+                  const contx = await arweave.arql({
+                      op: "and",
+                      expr1: {
+                        op: "equals",
+                          expr1: "from",
+                          expr2: owner
+                      },
+                      expr2: {
+                            op: "and",
+                            expr1: {
+                              op: "equals",
+                                expr1: "Reave-Type",
+                                expr2: "Tags-Story"
+                            },
+                            expr2: {
+                                op:"equals",
+                                expr1:"Reave-Story-Id",
+                                expr2: myid
+                            }
+                      }
+                })
+                return contx[0];
+            }else {
+                return false;
+            }
+
+
+
+      } catch (e) {
+          return false;
+      }
+}
+
+//Fungsi untuk menampilkan atau Append dari Array
+async function domAppend(e) {
+
+      e.forEach(function (item, value){
+
+        console.log(item);
+          var toAppend = '<div class="col-sm-6 item" id="storyitem"> <div class="row boxarticle"> <div class="col-md-12 col-lg-5 imagebox"><a href="read.html?'+item.storyid+'"><img class="img-fluid" id="storythumbnail" src="'+item.thumbnail+'" /></a></div> <div class="col rightbox"><a id="storytitle" class="titlelink boxtitle" href="read.html?'+item.storyid+'">'+(item.title).slice(0,100)+'</a> <div class="author" style="margin-top: 10px;"><i class="fa fa-user-o float-left" aria-hidden="true" style="margin: 3px;"></i> <a href="author.html?'+item.storyid+'" style="color:black;"><h5 class="float-left name storyauthor" id="storyauthor">'+item.author+'</h5></a> <p id="storydate" class="name mydatelist"> '+item.date+'</p> </div> <p id="storydesc" class="description boxdesc">'+item.desc+'</p><a class="badge badge-dark text-white" id="storycategory">'+item.category+'</a> <a class="badge badge-success text-white" id="tipped">'+item.tip+' AR</a></div> </div> </div>';
+          $('#storylist').append(toAppend);
+
+      });
+
+}
+
+
+$('#next').click(function() {
+  event.preventDefault();
+  $('#cat-menu-list').animate({
+    scrollLeft: "+=164px"
+  }, "slow");
+});
+
+ $('#prev').click(function() {
+  event.preventDefault();
+  $('#cat-menu-list').animate({
+    scrollLeft: "-=164px"
+  }, "slow");
+});

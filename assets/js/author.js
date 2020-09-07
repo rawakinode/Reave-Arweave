@@ -1,6 +1,34 @@
 
 getProfile();
 async function getStory(e) {
+
+    let op = [];
+    try {
+          const transaction = await arweave.arql({
+               op: "and",
+               expr1: {
+                 op: "equals",
+                 expr1: "from",
+                 expr2: "OesddStCpX7gW3ZWxO93GnU7wRYjAQIJUA8c7KkID2M"
+               },
+               expr2: {
+                     op: "and",
+                     expr1: {
+                       op: "equals",
+                       expr1: "App-Name",
+                       expr2: "Reave-Apps"
+                     },
+                     expr2: {
+                         op:"equals",
+                         expr1:"Reave-Type",
+                         expr2: "Tags-Story"
+                     }
+               }
+           })
+    } catch (e) {
+
+    }
+
     try {
         const transaction = await arweave.arql({
              op: "and",
@@ -14,7 +42,7 @@ async function getStory(e) {
                    expr1: {
                      op: "equals",
                      expr1: "App-Name",
-                     expr2: "Reave-Apps-Demo"
+                     expr2: "Reave-Apps"
                    },
                    expr2: {
                        op:"equals",

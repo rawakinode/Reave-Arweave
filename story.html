@@ -7,7 +7,7 @@
     <title>All Story | Reave</title>
     <link rel="icon" type="image/png" sizes="260x252" href="assets/img/reave-icon.png?h=d4a6a042a011ddf1678f8f5ab14f3ffe">
     <link rel="icon" type="image/png" sizes="260x252" href="assets/img/reave-icon.png?h=d4a6a042a011ddf1678f8f5ab14f3ffe">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css?h=7832f33ce96841fbe180621c86395f02">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css?h=6cc820fc5e80fb595b1ee3319edc76f1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alef">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+Sans">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aleo">
@@ -39,12 +39,12 @@
     <link rel="stylesheet" href="assets/css/Navigation-with-Button.css?h=8045a4dca95eb6931473606f7a274f5a">
     <link rel="stylesheet" href="assets/css/Navigation-with-Search.css?h=cc854edeeadd4c06dfda9f834e92e87a">
     <link rel="stylesheet" href="assets/css/Projects-Horizontal.css?h=38a8413dcca77dec2fe09b29a4e272c9">
-    <link rel="stylesheet" href="assets/css/styles.css?h=56fbc67a3a500c52f5a31dfb41bea101">
+    <link rel="stylesheet" href="assets/css/styles.css?h=bf1d9d783935e97007c603ddf3ab1b95">
     <link rel="stylesheet" href="assets/css/Team-Boxed.css?h=82bbec4cae98efe5fc4bdd3d9d621fc2">
     <link rel="stylesheet" href="assets/css/Testimonials.css?h=33403b915e080d0d25db57d976decd4f">
 </head>
 
-<body style="font-family: monospace;background-color: #fcfcfc;">
+<body style="background-color: #fcfcfc;">
     <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="background-color: rgb(38,38,38);">
         <div class="container"><a class="navbar-brand" href="story.html" style="color: rgb(247,247,247);font-family: monospace;">Reave</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1" style="background-color: #f2f2f2;"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon" style="filter: brightness(129%) contrast(152%) grayscale(28%) hue-rotate(0deg) invert(0%) saturate(75%) sepia(27%);color: rgb(13,13,13);"></span></button>
             <div
@@ -67,12 +67,22 @@
                 </div><button class="btn header-log-btn" id="btnloghead" type="button" onclick="started()" style="display: none;font-family: monospace;margin-left: 13px;margin-bottom: 8px;margin-top: 6px;">Getting Started</button><span class="navbar-text actions"> <a class="btn btn-light newstory-btn" role="button" href="new.html" style="font-size: 14px;margin-left: 10px;"><i class="fa fa-pencil"></i>&nbsp;New Story</a></span></div>
         </div>
     </nav>
-    <div class="projects-horizontal" style="background-color: #fcfcfc;margin-bottom: 20px;">
+    <div class="projects-horizontal" style="background-color: #fcfcfc;margin-bottom: 20px;margin-top: 26px;">
         <div class="container">
-            <div class="intro">
-                <h2 class="text-center" id="categorytitle">All Story</h2>
-                <p class="text-center">Reave is a decentralized story sharing media. You can share a variety of stories, information, news, announcements and statements here. Enjoy it. </p>
-            </div>
+            <div class="intro"></div><i class="fa fa-arrow-left prev-btn" aria-hidden="true"  id="prev"></i><i class="fa fa-arrow-right next-btn" aria-hidden="true" id="next"></i>
+<div class="menu-main" id="cat-menu-list">
+  
+  <a href="#home" style="background-image:url('assets/img/category1.png?h=1eb10f77b50318e132982d71f9818158')">Art</a>
+  <a href="#news" style="background-image:url('assets/img/category4.png?h=cfebd9bf408dea57463f8a919cf67349')">Blockchain</a>
+  <a href="#contact" style="background-image:url('assets/img/category3.png?h=9b809740738a9a196daec217a753cd24')">Books</a>
+  <a href="#about" style="background-image:url('assets/img/category2.png?h=57c9d3344180dec526bc684e81809d76')">Health</a>
+  <a href="#support" style="background-image:url('assets/img/category5.png?h=52cad6eb2b615739dafd2cad8f13b04c')">News</a>
+  <a href="#blog" style="background-image:url('assets/img/category6.png?h=0ca8b01b65a3516ef40b23c796057425')">Sport</a>
+  <a href="#tools" style="background-image:url('assets/img/category7.png?h=bfb80441ee6a8875401ddd21ea8adcb5')">Technology</a>  
+  
+</div>
+
+            <div class="row"></div>
             <div class="row projects" id="storylist"></div>
         </div>
     </div>
@@ -94,7 +104,7 @@
     <script src="assets/js/error.js?h=7f0eb73d9beac2a6eef0966ac7c63506"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <script src="assets/js/moment.js?h=abf3f6d555440b7c0066ab685c748a81"></script>
-    <script src="assets/js/story.js?h=90382ac8202a5a97ac109dc57e107ca9"></script>
+    <script src="assets/js/story.js?h=91c01de4f14e62eb7cbfeba83bc634d7"></script>
 </body>
 
 </html>
