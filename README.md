@@ -1,5 +1,5 @@
 # Reave-Arweave
- A Decentralized Story Sharing Platform based Arweave Blockchain : Try --> https://arweave.net/sTY-I6Zy2_iDBrFnw1ANh9kmAxg1jzWIjK6v-igGz4A
+ A Decentralized Story Sharing Platform based Arweave Blockchain : Try --> http://reave.me/
  
 # Problem
 
