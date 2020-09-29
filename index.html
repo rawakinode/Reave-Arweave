@@ -1,170 +1,99 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Reave - A Decentralized Platform Sharing Story Anythings</title>
-    <link rel="icon" type="image/png" sizes="260x252" href="assets/img/reave-icon.png?h=d4a6a042a011ddf1678f8f5ab14f3ffe">
-    <link rel="icon" type="image/png" sizes="260x252" href="assets/img/reave-icon.png?h=d4a6a042a011ddf1678f8f5ab14f3ffe">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css?h=b4f70d2706cabcef792c46fb106ee59b">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alef">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+Sans">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aleo">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anaheim">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Average">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css?h=2c0fc24b3d3038317dc51c05339856d0">
-    <link rel="stylesheet" href="assets/fonts/ionicons.min.css?h=2c0fc24b3d3038317dc51c05339856d0">
-    <link rel="stylesheet" href="assets/fonts/simple-line-icons.min.css?h=2c0fc24b3d3038317dc51c05339856d0">
-    <link rel="stylesheet" href="assets/css/Article-Clean-1.css?h=9086bc49b876f77bfed1a3ad5715f65d">
-    <link rel="stylesheet" href="assets/css/Article-Clean.css?h=34c7a3564ecb60bf270ba63c2ee9e666">
-    <link rel="stylesheet" href="assets/css/Article-List.css?h=cec575f25bba55cfaa10100750e76412">
-    <link rel="stylesheet" href="assets/css/Boostrap-Tabs.css?h=9159c6af58493105f16663dd19b38c98">
-    <link rel="stylesheet" href="assets/css/Brands.css?h=becd5db46256944d43e6aa75c91c4fb4">
-    <link rel="stylesheet" href="assets/css/Contact-Form-Clean.css?h=c942239c91f94a6b90d67fb2496c21bf">
-    <link rel="stylesheet" href="assets/css/Features-Blue.css?h=98b56eb809f70637ce7948c0ff3d59cc">
-    <link rel="stylesheet" href="assets/css/Features-Boxed.css?h=0b2550a280a22b376e2957c8c8f37c9b">
-    <link rel="stylesheet" href="assets/css/Footer-Basic.css?h=d15dfcb68fabe0442ff06063b052477c">
-    <link rel="stylesheet" href="assets/css/Footer-Clean.css?h=8f120d33c0bf092c48e3c98c6b1cd5d3">
-    <link rel="stylesheet" href="assets/css/Footer-Dark.css?h=cabc25193678a4e8700df5b6f6e02b7c">
-    <link rel="stylesheet" href="assets/css/Header-Blue.css?h=abdfdede388922a9cead92f263672dac">
-    <link rel="stylesheet" href="assets/css/Highlight-Phone.css?h=4532ee049a603a5c3c42759996c487e8">
-    <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.6/quill.snow.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-    <link rel="stylesheet" href="assets/css/loading.css?h=c6b97808658aa5c81859b0d03bb2baa1">
-    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css?h=587ac2057624923cd5be3eaf8b1158cd">
-    <link rel="stylesheet" href="assets/css/Login-Form-Dark.css?h=e69195fd6b0e213b0d42b9d11492e002">
-    <link rel="stylesheet" href="assets/css/Navigation-with-Button.css?h=8045a4dca95eb6931473606f7a274f5a">
-    <link rel="stylesheet" href="assets/css/Navigation-with-Search.css?h=cc854edeeadd4c06dfda9f834e92e87a">
-    <link rel="stylesheet" href="assets/css/Projects-Horizontal.css?h=38a8413dcca77dec2fe09b29a4e272c9">
-    <link rel="stylesheet" href="assets/css/styles.css?h=5c51fb297b4de71615b01b5284b8dc1e">
-    <link rel="stylesheet" href="assets/css/Team-Boxed.css?h=82bbec4cae98efe5fc4bdd3d9d621fc2">
-    <link rel="stylesheet" href="assets/css/Testimonials.css?h=33403b915e080d0d25db57d976decd4f">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/responsive.css">
 </head>
+<body>
 
-<body style="font-family: Archivo, sans-serif;">
+<div class="header">
+    <h1>reave.me</h1><span class="navbar"><a href="#">Welcome</a><a href="#">My Stories</a><a href="#">Write Story</a><a href="#">Login</a></span><span class="iconnav" onclick="opennav()"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiLz48L3N2Zz4=" alt="" class="filter-white"></span>
+</div>
+<div class="mainside" id="mainside"></div>
+
+<div class="sidebar" id="sidebar">
+    <a href="#">Welcome</a><a href="#">My Stories</a><a href="#">Write Story</a><a href="#">Login</a>
+</div>
+
+
+
+<div class="main">
+    <div class="main-a">
+        <div class="mtit">NEW STORIES.</div>
+        <div class="main-i">
+            <a href="#"><img class="img-fluid" src="https://1.bp.blogspot.com/-55fphhj9QMY/XkvwojkVaBI/AAAAAAAACQI/zPXB6kz5vPk6bxBLMaC7vXUyWk_0xFD5gCLcBGAsYHQ/s640/gambar%2Bkartun%2Bkeren%2Babis%2B3d%2B2.jpg" /></a>
+            <a href="/"><h3>BLOCKCHAIN</h3></a><span class="share"></span>
+            <h2><a href="/">Will The Democrats Be Able To Reverse The Online Gambling Ban The Online Gambling Ban</a></h2>
+            <h5>by <a href="/" class="authorlink">Alice Asuna</a><span style="margin-left: 15px;"> 🕒 </span><span>3 Days Ago</span><span class="love-btn">🧡</span><span> 1 AR</span></h5>
+        </div>
+        <div class="main-i">
+            <a href="#"><img class="img-fluid" src="https://1.bp.blogspot.com/-55fphhj9QMY/XkvwojkVaBI/AAAAAAAACQI/zPXB6kz5vPk6bxBLMaC7vXUyWk_0xFD5gCLcBGAsYHQ/s640/gambar%2Bkartun%2Bkeren%2Babis%2B3d%2B2.jpg" /></a>
+            <a href="/"><h3>BLOCKCHAIN</h3></a><span class="share"></span>
+            <h2><a href="/">Will The Democrats Be Able To Reverse The Online Gambling Ban The Online Gambling Ban</a></h2>
+            <h5>by <a href="/" class="authorlink">Alice Asuna</a><span style="margin-left: 15px;"> 🕒 </span><span>3 Days Ago</span><span class="love-btn">🧡</span><span> 1 AR</span></h5>
+        </div>
+        <div class="main-i">
+            <a href="#"><img class="img-fluid" src="https://1.bp.blogspot.com/-55fphhj9QMY/XkvwojkVaBI/AAAAAAAACQI/zPXB6kz5vPk6bxBLMaC7vXUyWk_0xFD5gCLcBGAsYHQ/s640/gambar%2Bkartun%2Bkeren%2Babis%2B3d%2B2.jpg" /></a>
+            <a href="/"><h3>BLOCKCHAIN</h3></a><span class="share"></span>
+            <h2><a href="/">Will The Democrats Be Able To Reverse The Online Gambling Ban The Online Gambling Ban</a></h2>
+            <h5>by <a href="/" class="authorlink">Alice Asuna</a><span style="margin-left: 15px;"> 🕒 </span><span>3 Days Ago</span><span class="love-btn">🧡</span><span> 1 AR</span></h5>
+        </div>
+        <div class="main-i">
+            <a href="#"><img class="img-fluid" src="https://1.bp.blogspot.com/-55fphhj9QMY/XkvwojkVaBI/AAAAAAAACQI/zPXB6kz5vPk6bxBLMaC7vXUyWk_0xFD5gCLcBGAsYHQ/s640/gambar%2Bkartun%2Bkeren%2Babis%2B3d%2B2.jpg" /></a>
+            <a href="/"><h3>BLOCKCHAIN</h3></a><span class="share"></span>
+            <h2><a href="/">Will The Democrats Be Able To Reverse The Online Gambling Ban The Online Gambling Ban</a></h2>
+            <h5>by <a href="/" class="authorlink">Alice Asuna</a><span style="margin-left: 15px;"> 🕒 </span><span>3 Days Ago</span><span class="love-btn">🧡</span><span> 1 AR</span></h5>
+        </div>
+        <div class="main-i">
+            <a href="#"><img class="img-fluid" src="https://1.bp.blogspot.com/-55fphhj9QMY/XkvwojkVaBI/AAAAAAAACQI/zPXB6kz5vPk6bxBLMaC7vXUyWk_0xFD5gCLcBGAsYHQ/s640/gambar%2Bkartun%2Bkeren%2Babis%2B3d%2B2.jpg" /></a>
+            <a href="/"><h3>BLOCKCHAIN</h3></a><span class="share"></span>
+            <h2><a href="/">Will The Democrats Be Able To Reverse The Online Gambling Ban The Online Gambling Ban</a></h2>
+            <h5>by <a href="/" class="authorlink">Alice Asuna</a><span style="margin-left: 15px;"> 🕒 </span><span>3 Days Ago</span><span class="love-btn">🧡</span><span> 1 AR</span></h5>
+        </div>
+        <div class="main-i">
+            <a href="#"><img class="img-fluid" src="https://1.bp.blogspot.com/-55fphhj9QMY/XkvwojkVaBI/AAAAAAAACQI/zPXB6kz5vPk6bxBLMaC7vXUyWk_0xFD5gCLcBGAsYHQ/s640/gambar%2Bkartun%2Bkeren%2Babis%2B3d%2B2.jpg" /></a>
+            <a href="/"><h3>BLOCKCHAIN</h3></a><span class="share"></span>
+            <h2><a href="/">Will The Democrats Be Able To Reverse The Online Gambling Ban The Online Gambling Ban</a></h2>
+            <h5>by <a href="/" class="authorlink">Arweave Team</a><span style="margin-left: 15px;"> 🕒 </span><span>3 Days Ago</span><span class="love-btn">🧡</span><span> 1 AR</span></h5>
+        </div>
+
+        <div class="other">MORE STORIES</div>
+    </div>
+    
+</div>
+
+<div class="footer">
+    <div class="ftr">reave.me</div>
+    <div class="footer-a">
+        <a href="#">Reave</a><a href="#">Contact</a><a href="#">Privacy Policy</a><a href="#">Profit Sharing Token</a>
+    </div>
     <div>
-        <div class="header-blue" style="height: 763px;background-color: rgb(13 20 36);">
-            <nav class="navbar navbar-light navbar-expand-md navigation-clean-search">
-                <div class="container-fluid"><a class="navbar-brand" href="#">Reave</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse"
-                        id="navcol-1">
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="story.html">All Story</a></li>
-                        </ul>
-                        <form class="form-inline mr-auto" target="_self">
-                            <div class="form-group"><label for="search-field"></label></div>
-                        </form><span class="navbar-text"> </span></div>
-                </div>
-            </nav>
-            <div class="container hero">
-                <div class="row" style="height: 642px;">
-                    <div class="col-12 col-lg-6 col-xl-5 offset-xl-1">
-                        <h1 style="font-size: 40px;margin: 96px;margin-top: 84px;margin-right: 0;margin-bottom: 0;margin-left: 0;">Share your stories everythings on Blockchain Permanently.</h1>
-                        <p style="color: #61656a;">Everyone wants their stories and writings to be stored forever on the Internet. Reave lets you write stories, whatever they are and share them with everyone. </p><a class="btn btn-light btn-lg action-button" role="button" href="story.html">Open Reave</a></div>
-                    <div
-                        class="col-md-5 col-lg-5 offset-lg-1 offset-xl-0 d-none d-lg-block phone-holder">
-                        <div class="iphone-mockup"><img class="device" src="assets/img/iphone-mockup-huawei-nova-2i-11562874786xfkmgmmdju.png?h=86bd2414ca09b81ea72402c322b83b7b" style="height: 569px;"></div>
-                </div>
-            </div>
-        </div>
+        <p class="copyright">Copyright © 2020 Platform Sharing Stories by Reave</p>
     </div>
-    </div>
-    <div class="features-boxed">
-        <div class="container">
-            <div class="intro">
-                <h2 class="text-center">About Reave</h2>
-                <p class="text-center">Reave is an innovative media solution for sharing stories and writings built on the Arweave Blockchain. Get benefits and benefits by using Reave.</p>
-            </div>
-            <div class="row justify-content-center features">
-                <div class="col-sm-6 col-md-5 col-lg-4 item">
-                    <div class="box"><i class="fa fa-cubes" style="font-size: 60px;margin-bottom: 25px;color: #4363ac;"></i>
-                        <h3 class="name">Technology</h3>
-                        <p class="description">Reave uses the existing Arweave Blockchain. This blockchain allows storing all story and writing data into blocks and nodes permanently.</p>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-5 col-lg-4 item">
-                    <div class="box"><i class="fa fa-database" style="font-size: 60px;margin-bottom: 25px;color: #4363ac;"></i>
-                        <h3 class="name">Permanently</h3>
-                        <p class="description">Unlike other platforms, Reave will keep the stories you have written forever. You don't need to be afraid if your story disappears, because that is not possible.</p>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-5 col-lg-4 item">
-                    <div class="box"><i class="fa fa-money" style="font-size: 60px;margin-bottom: 25px;color: #4363ac;"></i>
-                        <h3 class="name"><strong>Incentive</strong></h3>
-                        <p class="description">Story writers, developers, and investors have the opportunity to get incentives from activities carried out by all users using Arweave tokens.</p>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-5 col-lg-4 item">
-                    <div class="box"><i class="fa fa-laptop" style="font-size: 60px;margin-bottom: 25px;color: #4363ac;"></i>
-                        <h3 class="name"><strong>User Friendly</strong></h3>
-                        <p class="description">Reave is designed with a user-friendly interface. Reave while maintaining comfort when writing and sharing stories. This very fun fo all.</p>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-5 col-lg-4 item">
-                    <div class="box"><i class="fa fa-slack" style="font-size: 60px;margin-bottom: 25px;color: #4363ac;"></i>
-                        <h3 class="name">Tokenization</h3>
-                        <p class="description">Reave implements an intelligent contract called SmartWeave to create a new token, the Reave token with the REV Ticker (Reave Token).</p>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-5 col-lg-4 item">
-                    <div class="box"><i class="fa fa-code" style="font-size: 60px;margin-bottom: 25px;color: #4363ac;"></i>
-                        <h3 class="name">Open Source</h3>
-                        <p class="description">The source code is available on Github. Developers can find it as a reference and provide feedback for Reave as a feature enhancement in the future.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div style="padding: 50px 0px;background-color: #143581;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card" style="border-radius: 20px;background-color: rgb(20,53,129);border: none;">
-                        <div class="card-body">
-                            <h4 class="card-title" style="font-weight: bold;color: rgb(255,255,255);">PROBLEM</h4>
-                            <p class="card-text" style="color: rgb(187,187,187);">In the first quarter of 2020, internet users around the world reached 4.5 trillion active users. Among these statistics, some of them are users of online publishing media. One problem that is seen today is that the publish
-                                platform is still centralized. <br><br>All writers and readers are subject to and obey the rules and regulations both from the agency and from the government. This allows the deletion of data and author's account so that
-                                it can be detrimental to the author. In addition, there is still a lack of platforms that provide income directly from readers to writers.<br><br></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card" style="border-radius: 20px;background-color: rgb(20,53,129);border: none;">
-                        <div class="card-body">
-                            <h4 class="card-title" style="font-weight: bold;color: rgb(255,255,255);">SOLUTION</h4>
-                            <p class="card-text" style="color: rgb(187,187,187);">Reave's story and information sharing platform is intended so that the Author has the freedom to write and publish his writings on the internet. Because it is decentralized, it means the user account is 100% owned by the user.
-                                <br><br>All asset, data and information management is managed by the user himself. In other words, Author is free to delete, post and share any information on the Reave platform. Reave is permanent, meaning that all user
-                                account data will not be lost in the blockchain ledger. All are recorded and stored on the Arweave Blockchain. In addition, the best solution is to provide 100% incentives to Author.<br><br></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="brands"><a href="#"> <img src="assets/img/nav-logo.svg?h=bbd3a653a5511ccaec05252e5edb1628" style="filter: contrast(0.1);"></a></div>
-    <div class="footer-dark" style="background-color: rgb(13,20,36);">
-        <footer>
-            <div style="display: block;margin: auto;text-align: center;"><a href="#"><i class="fa fa-facebook footericon"></i></a><a href="#"><i class="fa fa-twitter footericon" style="padding: 10px ;"></i></a><a href="#"><i class="fa fa-linkedin footericon" style="padding: 10px 11px;"></i></a><a href="#"><i class="fa fa-github footericon" style="padding: 10px 11px;"></i></a>
-                <a
-                    href="#"><i class="fa fa-gitlab footericon" style="padding: 10px 10px;"></i></a>
-            </div>
-            <div class="container">
-                <p class="copyright">Reave © MIT 2020</p>
-            </div>
-        </footer>
-    </div>
-    <script src="assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js?h=7c038681746a729e2fff9520a575e78c"></script>
-    <script src="https://unpkg.com/arweave/bundles/web.bundle.min.js"></script>
-    <script src="assets/js/arweave.js?h=8fdfd50c301da807725cf40101e56f18"></script>
-    <script src="assets/js/header.js?h=2ec1a6572e7a149adb56642b7ec4668e"></script>
-    <script src="assets/js/logout.js?h=8b9cb474fd8c19481d16b41dbb29eadc"></script>
-    <script src="assets/js/error.js?h=7f0eb73d9beac2a6eef0966ac7c63506"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+</div>
+
 </body>
 
+<script>
+    function opennav() {
+        var s = sessionStorage.getItem('rev-sidebar');
+        var u = '';
+        var d = '';
+
+        if (s === '2') {
+            u = '-200px';
+            d = 'none';
+            sessionStorage.setItem('rev-sidebar', '1');
+        }else {
+            u = '0';
+            d = 'block';
+            sessionStorage.setItem('rev-sidebar', '2');
+        }
+
+        document.getElementById('mainside').style.display = d;
+        document.getElementById('sidebar').style.right = u;
+        
+    }
+</script>
 </html>
