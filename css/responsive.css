@@ -25,9 +25,28 @@
 
     .main-i{
         width: 100%;
-    }    
-}
+    }
+    
+    .fulledit {
+        float: none;
+        width: calc(100% - 0px);
+    }
 
+    .editor-informations{
+        float: none;
+        overflow: hidden;
+        width: calc(100% - 50px);
+    }
+    .br {
+        display: block;
+        text-align: center;
+    }
+
+    .fee{
+        text-align: center;
+        display: block;
+    }
+}
 @media only screen and (max-width: 600px) {
     .main-a{
         max-width: 500px;
@@ -44,6 +63,16 @@
 
     .iconnav {
         display: block;
+    }
+
+    .mtit{
+        font-size: 22px;
+        font-weight: 600;
+        margin-left: 4%;
+    }
+
+    .main {
+        margin-top: 80px;
     }
 }
 
@@ -83,6 +112,5 @@
         font-weight: 600;
         line-height: 1.3;
         margin-top: 1rem;
-
     }
 }

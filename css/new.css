@@ -1,0 +1,155 @@
+.editors {
+    min-height: 250px;
+}
+
+.ql-toolbar.ql-snow {
+    border:none !important;
+}
+
+.ql-container.ql-snow {
+    border:none !important;
+}
+
+.ql-container{
+    font-family: inherit !important;
+    font-size: 16px !important;
+    
+}
+
+.bs {
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px 5px rgb(251 251 251);
+}
+
+.fulledit{
+    float: left;width: calc(100% - 270px);
+}
+
+.mainedit{
+    display: block;
+    margin: 10px;
+    padding-top: 5px;
+}
+
+.editor-informations{
+    width: 230px;
+    float: right;
+    margin-top: 10px;
+    padding: 10px 15px;
+}
+
+.add-title > input[type=text]{
+    width: calc(100% - 40px);
+    margin: 5px 10px;
+    padding: 10px 10px;
+    font-size: 18px;
+    border: none;
+    font-family: inherit;
+}
+
+.sub-title{
+    margin-left: 15px;
+    margin-top: 5px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.sub-category{
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.category-id{
+    float: left;
+    font-size: 12px;
+    background-color: lightsalmon;
+    color:white;
+    padding: 5px 10px;
+    margin-top: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.category-id:hover{
+    background-color: rgb(17, 17, 17);
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.thumbbtn {
+    border-radius: 10px;
+    width: 100%;
+    cursor: pointer;
+    padding: 50px 0px;
+    background-color: white;
+    border: 2px dashed black;
+    font-family: inherit;
+}
+
+.thumbbtnremove {
+    border-radius: 10px;
+    width: 100%;
+    cursor: pointer;
+    padding: 5px 0px;
+    background-color: white;
+    border: 2px dashed black;
+    font-family: inherit;
+    margin-top: 10px;
+}
+
+.br{
+    border-radius: 10px;
+}
+
+.popup{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #000000cc;
+    top: 0;
+    left: 0;
+}
+
+.itempopup{
+    background-color: white;
+    max-width: 250px;
+    padding: 15px 10px;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 10px;
+}
+
+.popbtn{
+    display: inline-flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+.poptitle{
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.otherx {
+    font-size: 14px;
+    color: white;
+    display: inline-block;
+    padding: 5px 15px;
+    cursor: pointer;
+    width: 35%;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.bgr {
+    background-color: red;
+}
+
+.bgb {
+    background-color: black;
+}

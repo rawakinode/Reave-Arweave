@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Reave - New Story</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/new.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+
+</head>
+<body>
+
+<div class="header">
+    <h1>reave.me</h1><span class="navbar"><a href="index.html">Home</a><a href="#">My Stories</a><a href="new.html">Write Story</a><a href="#">Login</a></span><span class="iconnav" onclick="opennav()"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiLz48L3N2Zz4=" alt="" class="filter-white"></span>
+</div>
+
+<div class="mainside" id="mainside"></div>
+
+<div class="sidebar" id="sidebar">
+    <a href="index.html">Home</a><a href="#">My Stories</a><a href="new.html">Write Story</a><a href="#">Login</a>
+</div>
+
+
+<div class="main">
+    <div class="main-a">
+        <div class="mtit">write story.</div>
+
+    <div class="fulledit">
+        <div class="mainedit bs">
+            <div class="add-title">
+                <p class="sub-title">title.</p>
+                <input type="text" id="title">
+            </div>
+            
+        </div>
+
+        <div class="mainedit bs">
+            <div id="editor" class="editors"></div>
+        </div>
+    </div>
+        <div class="editor-informations bs">
+            <p class="sub-category">category.</p>
+            <span class="category-id" onclick="selectCategory('art')" id="art">ART</span>
+            <span class="category-id" onclick="selectCategory('blockchain')" id="blockchain">BLOCKCHAIN</span>
+            <span class="category-id" onclick="selectCategory('books')" id="books">BOOKS</span>
+            <span class="category-id" onclick="selectCategory('cryptocurrency')" id="cryptocurrency">CRYPTOCURRENCY</span>
+            <span class="category-id" onclick="selectCategory('conference')" id="conference">CONFERENCE</span>
+            <span class="category-id" onclick="selectCategory('financial')" id="financial">FINANCIAL</span>
+            <span class="category-id" onclick="selectCategory('history')" id="history">HISTORY</span>
+            <span class="category-id" onclick="selectCategory('health')" id="health">HEALTH</span>
+            <span class="category-id" onclick="selectCategory('investment')" id="investment">INVESTMENT</span>
+            <span class="category-id" onclick="selectCategory('ico')" id="ico">ICO</span>
+            <span class="category-id" onclick="selectCategory('music')" id="music">MUSIC</span>
+            <span class="category-id" onclick="selectCategory('news')" id="news">NEWS</span>
+            <span class="category-id" onclick="selectCategory('sport')" id="sport">SPORT</span>
+            <span class="category-id" onclick="selectCategory('science')" id="science">SCIENCE</span>
+            <span class="category-id" onclick="selectCategory('technology')" id="technology">TECHNOLOGY</span>
+        </div>
+
+        <div class="editor-informations bs">
+            <p class="sub-category">thumbnail.</p>
+            <input type="file" name="file" id="inputfile" onchange="fileproses(this.files)" hidden>
+            <canvas id="canvasx" hidden></canvas>
+            <div id="showCover" style="margin-top: 10px;"></div>
+            <button class="thumbbtn" onclick="openfile()" id="addcover">add cover</button>
+            <button class="thumbbtnremove" onclick="removethumbnail()" id="removethumbnail" hidden>remove thumbnail</button>
+        </div>
+    
+        <div class="other br" onclick="openPopUp('Are sure publish this story ? XXX', 'closePopUp()', 'nextPublish()')">PUBLISH</div><span class="fee"> Fee : 0.05 AR</span>
+
+        <div class="popup" id="popup" hidden>
+            <div class="itempopup">
+                <div class="poptitle" id="poptitle">Are you sure publish this story ?</div>
+                <div class="popbtn">
+                    <div class="otherx bgr" onclick="" id="no">CANCEL</div>
+                    <div class="otherx bgb" onclick="" id="yes">YES</div>
+               </div>
+                
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<div class="footer">
+    <div class="ftr">reave.me</div>
+    <div class="footer-a">
+        <a href="#">Reave</a><a href="#">Contact</a><a href="#">Privacy Policy</a><a href="#">Profit Sharing Token</a>
+    </div>
+    <div>
+        <p class="copyright">Copyright © 2020 Platform Sharing Stories by Reave</p>
+    </div>
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="script/new.js"></script>
+<script src="script/navigation.js"></script>
+
+
+</html>
