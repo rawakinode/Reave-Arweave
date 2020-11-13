@@ -17,3 +17,13 @@ function opennav() {
     document.getElementById('sidebar').style.right = u;
     
 }
+
+var importJwk = localStorage.getItem('reaveSessionLogin');
+var importAddr = localStorage.getItem('reaveSessionAddress');
+console.log(importJwk);
+if (importJwk !== null) {
+    document.getElementById('logstatus').setAttribute('onclick', 'logoutSession()');
+    document.getElementById('logstatus').setAttribute('title', importAddr);
+    document.getElementById('logstatus').setAttribute('href', 'javascript:void(0)');
+    document.getElementById('logstatus').innerText = 'Logout';
+}

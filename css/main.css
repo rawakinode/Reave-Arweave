@@ -18,6 +18,7 @@ body {
     top: 0;
     left: 0;
     display: inline-flex;
+    z-index: 10000;
 }
 
 .header > h1 {
@@ -52,35 +53,9 @@ body {
     background: yellow;
 }
 
-.footer{
-    background: black;
-    color: white;
-    text-align: center;
-    padding: 30px 10px;
-}
-
-.footer-a{
-    display: inline-flex;
-    border-bottom: solid 1px rgb(46, 46, 46);
-    padding-bottom: 5px;
-    margin-bottom: 5px;
-}
-
-.footer-a > a {
-    color: gainsboro;
-    font-size: 14px;
-    margin-left: 10px;
-    margin-right: 10px;
-    text-decoration: none;
-    transition: 300ms;
-}
-
-.footer-a > a:hover {
-    color: rgb(255, 121, 43);
-}
 
 .main-a{
-    max-width: 1200px;
+    max-width: 1050px;
     background:white;
     overflow: hidden;
     margin-bottom: 30px;
@@ -89,7 +64,7 @@ body {
 
 .main-i{
     background: white;
-    width: 580px;
+    width: 500px;
     float: left;
     margin: 15px 10px;
     transition: 300ms;
@@ -155,8 +130,8 @@ body {
 
 .main-i > h5{
     float: none;
-    font-size: 14px;
-    font-weight: 300;
+    font-size: 12px;
+    font-weight: 500;
     margin-top: 7px;
     color: rgb(163, 163, 163);
 }
@@ -194,10 +169,11 @@ body {
 }
 
 .other {
-    margin: 20px 0 0 10px;
+    margin: auto;
+    margin-bottom: 40px;
     background: black;
     color: white;
-    display: inline-block;
+    display: table;
     padding: 5px 15px;
     cursor: pointer;
 }
@@ -206,16 +182,6 @@ body {
     background: rgb(65, 65, 65);
 }
 
-.copyright {
-    font-size: 14px;
-    color: gainsboro;
-}
-
-.ftr {
-    font-size: 36px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
 
 .iconnav {
     display: none;
@@ -228,6 +194,8 @@ body {
 
 .filter-white {
     filter:invert(100%);
+    width: 25px;
+    margin-top: 5px;
 }
 
 .mainside {
@@ -266,4 +234,12 @@ body {
 
 .sidebar > a:hover {
    background: coral;
+}
+
+.verifiedsvg {
+    width: 13px;
+    position: relative;
+    top: 2px;
+    left: 7px;
+    cursor: pointer;
 }

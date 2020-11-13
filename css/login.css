@@ -1,0 +1,102 @@
+
+.bs {
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px 5px rgb(251 251 251);
+}
+
+.fulledit{
+    float: left;width: calc(100% - 270px);
+}
+
+.mainedit{
+    display: block;
+    margin: 10px;
+    padding-top: 5px;
+}
+
+.ltit{
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.editor-informations{
+    width: 230px;
+    margin-top: 30px;
+    padding: 10px 15px;
+}
+
+.add-title > input[type=text]{
+    width: calc(100% - 40px);
+    margin: 5px 10px;
+    padding: 10px 10px;
+    font-size: 18px;
+    border: none;
+    font-family: inherit;
+}
+
+.sub-title{
+    margin-left: 15px;
+    margin-top: 5px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.sub-category{
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.thumbbtn {
+    border-radius: 10px;
+    width: 100%;
+    cursor: pointer;
+    padding: 50px 0px;
+    background-color: white;
+    border: 2px dashed black;
+    font-family: inherit;
+}
+
+.thumbbtnremove {
+    border-radius: 10px;
+    width: 100%;
+    cursor: pointer;
+    padding: 5px 0px;
+    background-color: white;
+    border: 2px dashed black;
+    font-family: inherit;
+    margin-top: 10px;
+}
+
+.br{
+    border-radius: 10px;
+}
+
+.otherx {
+    font-size: 14px;
+    color: white;
+    background-color: black;
+    display: inline-block;
+    padding: 5px 15px;
+    cursor: pointer;
+    width: calc(100% - 30px);
+    margin-top: 10px;
+    border-radius: 10px;
+    text-align: center;
+    transition: 300ms;
+}
+
+.otherx:hover{
+    background-color: rgb(95, 95, 95);
+}
+
+.bgr {
+    background-color: red;
+}
+
+.bgb {
+    background-color: black;
+}

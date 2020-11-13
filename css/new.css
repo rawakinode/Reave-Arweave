@@ -124,6 +124,14 @@ textarea:focus, input:focus{
     border-radius: 10px;
 }
 
+.itemloading{
+    max-width: 0px;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 .popbtn{
     display: inline-flex;
     width: 100%;
@@ -135,15 +143,28 @@ textarea:focus, input:focus{
     padding: 20px 10px;
 }
 
-.otherx {
-    font-size: 14px;
+.othery {
+    margin: auto;
+    margin-bottom: 20px;
+    background: black;
     color: white;
     display: inline-block;
     padding: 5px 15px;
     cursor: pointer;
-    width: 35%;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 10px;
+}
+
+.otherx {
+    margin: auto;
+    margin-bottom: 20px;
+    background: black;
+    color: white;
+    display: table;
+    padding: 5px 15px;
+    cursor: pointer;
     border-radius: 10px;
-    text-align: center;
 }
 
 .bgr {
