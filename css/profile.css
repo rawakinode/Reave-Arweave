@@ -1,0 +1,297 @@
+.bs {
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px 5px rgb(251 251 251);
+}
+
+.pfbox {
+    display: inline-flex;
+    width: 100%;
+}
+
+.profilbox {
+    width: 100%;
+    height: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 40px;
+    border-top: solid 5px #717171;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.editpf > img {
+    width: 20px;
+    float: right;
+    cursor: pointer;
+    transition: 300ms;
+    filter: invert(25%) sepia(25%) saturate(20%) hue-rotate(83deg) brightness(103%) contrast(93%);
+}
+
+.editpf > img:hover {
+    filter: invert(48%) sepia(48%) saturate(6715%) hue-rotate(8deg) brightness(90%) contrast(102%);
+}
+
+.pfcover > img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+    display: block;
+    margin:auto;
+    object-fit: cover;
+    object-position: 50% 50%;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.pfname {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.pfdesc {
+    text-align: center;
+    color:#4a4a4a;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pfwallet {
+    font-size: 14px;
+    background-image: url(../svg/wallet.svg);
+    background-repeat: no-repeat;
+    padding-left: 30px;
+    color: #676767;
+    font-family: monospace;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pfbalance {
+    font-size: 14px;
+    background-image: url(../svg/money.svg);
+    background-repeat: no-repeat;
+    padding-left: 30px;
+    color: #676767;
+    font-family: monospace;
+    margin-top: 10px;
+}
+
+.pfwebsite {
+    font-size: 14px;
+    background-image: url(../svg/web.svg);
+    background-repeat: no-repeat;
+    padding-left: 30px;
+    color: #676767;
+    font-family: monospace;
+    margin-top: 10px;
+} 
+
+.pfstatus {
+    display: inline-flex;
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.statdown {
+    color: rgb(94, 94, 94);
+}
+
+.statup {
+    font-size: 36px;
+    font-weight: 600;
+}
+
+.editcover {
+    border-radius: 50%;
+    border:2px dashed black;
+    width:100px;
+    height: 100px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #fafafa;
+    transition: 300ms;
+}
+
+.editcover:hover {
+    background-color: #d3d3d3;
+}
+
+.editcover > img {
+    width: 30px;
+    position: relative;
+    top: 35%;
+}
+
+.editname{
+    display: inline-flex;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.editname > input[type=text] {
+    width: 100%;
+    padding: 10px 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    background-color: #fafafa;
+    border: solid 1px #e6e6e6;
+    font-family: monospace;
+    transition: 300ms;
+}
+
+.editdesc > textarea {
+    width: 100%;
+    padding: 10px 10px;
+    box-sizing: border-box;
+    background-color: #fafafa;
+    border: solid 1px #e6e6e6;
+    height: 40px;
+}
+
+.actionbutton {
+    display: inline-flex;
+    width: 100%;
+}
+
+.actionbutton > button{
+    width: 100%;
+    padding: 5px;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.actionbutton > button:hover{
+    background-color: #6f6f6f;
+    color:white;
+}
+
+.alertbox{
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    margin-top: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    border-left: solid 4px black;
+}
+
+.editbtn > img {
+    width: 20px;
+    float:left;
+    margin-left: 20px;
+    margin-right: 10px;
+    padding-top: 3px;
+    cursor: pointer;
+    filter: invert(35%) sepia(35%) saturate(7212%) hue-rotate(128deg) brightness(90%) contrast(101%);
+}
+.editbtn > img:hover {
+    filter: invert(53%) sepia(49%) saturate(1368%) hue-rotate(93deg) brightness(103%) contrast(102%);
+}
+
+.deletebtn > img {
+    width: 20px;
+    padding-top: 3px;
+    cursor: pointer;
+    filter: invert(10%) sepia(96%) saturate(6080%) hue-rotate(360deg) brightness(98%) contrast(107%);
+}
+
+.deletebtn > img:hover {
+    filter: invert(36%) sepia(45%) saturate(7221%) hue-rotate(346deg) brightness(104%) contrast(99%);
+}
+
+
+.popup{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #000000cc;
+    top: 0;
+    left: 0;
+}
+
+.itempopup{
+    background-color: white;
+    max-width: 250px;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 10px;
+}
+
+.itemloading{
+    max-width: 0px;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.popbtn{
+    display: inline-flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+.poptitle{
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.btnbox {
+    display: inline-flex;
+}
+
+.othery {
+    margin: auto;
+    background: black;
+    color: white;
+    display: inline-block;
+    padding: 5px 15px;
+    cursor: pointer;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.othery:hover {
+    background: rgb(85, 85, 85);
+    color: white;
+}
+
+.otherx {
+    margin: auto;
+    margin-bottom: 20px;
+    background: black;
+    color: white;
+    display: table;
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 14px;
+    text-align: center;
+    width: 70px;
+}
+
+.bgr {
+    background-color: red;
+}
+
+.bgb {
+    background-color: black;
+}

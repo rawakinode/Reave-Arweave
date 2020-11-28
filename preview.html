@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Reave - Login</title>
+<title>Reave</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/loading.css">
+<link rel="stylesheet" href="css/read.css">
 <link rel="stylesheet" href="css/responsive.css">
-<link rel="stylesheet" href="css/login.css">
-<script src="script/jquery.min.js"></script>
-<script src="https://unpkg.com/arweave/bundles/web.bundle.min.js"></script>
-<script src="script/arweave.js"></script>
-<script src="script/login.js"></script>
 
 </head>
 <body>
@@ -26,26 +23,21 @@
 
 <div class="main">
     <div class="main-a">
-        <div class="ltit">login.</div>
-
-        <div class="editor-informations bs">
-            <p class="sub-category">keyfile.</p>
-            <input type="file" accept=".json" name="file" id="inputfile" onchange="fileproses(this.files)" hidden>
-            <div id="showCover" style="margin-top: 10px;"></div>
-            <button class="thumbbtn" onclick="openfile()" id="addcover">select keyfile</button>
-            <div class="otherx br" onclick="buyToken()" id="publishBtn">GET WALLET</div>
-        </div>
-    
         
+        <div class="maincontent" id="contentplace">
+            
+
+        </div>
 
     </div>
     
 </div>
 
-
-</body>
+<script src="script/jquery.min.js"></script>
+<script src="script/moment.js"></script>
 <script src="script/navigation.js"></script>
 <script src="script/logout.js"></script>
+<script src="script/preview.js"></script>
 
-
+</body>
 </html>

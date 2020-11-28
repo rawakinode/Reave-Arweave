@@ -4,217 +4,197 @@ urlcategory = urlcategory.substring(1);
 
 $('#cattitle').append(urlcategory+'.');
 
-//GET FILTER TRANSACTIONS
-async function getFilterTransactions() {
-    try {
-        const graphql = await fetch('https://arweave.dev/graphql', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
-        body: JSON.stringify({ 'query': 'query { transactions( owners:["OesddStCpX7gW3ZWxO93GnU7wRYjAQIJUA8c7KkID2M"] block: {min: 1} sort: HEIGHT_DESC tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "App-Version", values: ["2.1"] }, { name: "Reave-Type", values: ["Filter"] } ] ) { edges { node { id } } } }'}),
-        })
-        .then(res => res.json())
-        .then(res => {
-            return res.data;
-        });
+//Start Story.js
+let alltx = [];
+let donetx = [];
+var txnow = 0;
 
-        var egr = (graphql.transactions).edges;
-        let o = [];
-        for (const key in egr) {
-            if (egr.hasOwnProperty(key)) {
-                const element = egr[key];
-                o.push((element.node).id);
-                
-            }
-        }
-
-        return o;
-
-    } catch (error) {
-        return false;
-    }
+async function runningData() {
+    await showLoading();
+    let a = await getTransactions();
+    console.log(a);
+    let b = await getFilterTransactions();
+    let c = await filterTransactions(b,a);
+    alltx = c;
+    txnow = alltx.length;
+    $('#loadinglist').empty();
+    let d = await checkAndShowData();
+    $('#lodmr').show();
 }
+
+runningData();
 
 //GET TRANSACTIONS
 async function getTransactions() {
-
     try {
         const graphql = await fetch('https://arweave.dev/graphql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
-        body: JSON.stringify({ 'query': 'query { transactions( block: {min: 1} sort: HEIGHT_DESC tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "App-Version", values: ["2.1"] }, { name: "Reave-Type", values: ["Tags-Story"] }, { name: "Reave-Category", values: ["'+urlcategory+'"] } ] ) { edges { node { id } } } }'}),
+        body: JSON.stringify({ 'query': 'query { transactions( first:100000 block: {min: 1} sort: HEIGHT_DESC tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "Reave-Type", values: ["Tags-Story"] }, { name: "App-Version", values: ["3.0"] }, { name: "Reave-Category", values: ["'+urlcategory+'"] } ] ) { edges { node { id quantity {ar winston} owner {address} tags {name value}} } } }'}),
+        })
+        .then(res => res.json())
+        .then(res => {
+            return res.data;
+        });
+        var egr = (graphql.transactions).edges;
+        let o = [];
+        for (const key in egr) {
+            if (egr.hasOwnProperty(key)) {
+                const nt = egr[key];
+                //FILTER FEE 0.1
+                var i = ((nt.node).quantity).winston;
+                if ( i === '100000000000') {                  
+                    o.push(nt.node);
+                }
+            }
+        }
+        return o;
+    } catch (error) {
+        return [];
+    }
+}
+
+//GET FILTER TRANSACTION
+async function getFilterTransactions() {
+    return [];
+}
+//FILTER TRANSACTION
+let yu = [];
+async function filterTransactions(a , b) {
+    yu = b;
+    for (const key in a) {
+        if (a.hasOwnProperty(key)) {
+            const le = a[key];
+            const index = yu.findIndex(x => x.id === le);
+            if (index !== undefined && index > -1){
+                yu.splice(index, 1);
+            }
+        }
+    }
+    return yu;
+}
+
+//FILTER DONE TRANSACTION
+let du = [];
+async function filterAfter(a , b) {
+    du = b;
+    for (const key in a) {
+        if (a.hasOwnProperty(key)) {
+            const le = a[key];
+            const index = du.findIndex(x => x.id === le);
+            if (index !== undefined && index > -1){
+                du.splice(index, 1);
+            }
+        }
+    }
+    return du;
+}
+
+
+//CHECK AND SHOW DATA
+async function checkAndShowData(r) {
+    if (r === 'more' && alltx.length !== 0) {
+        console.log(alltx.length);
+        await showLoading();
+        
+    }
+    
+    if (alltx.length !== 0) {
+        let w = alltx;
+        var pg = 0;
+        for (const q in w) {
+            if (w.hasOwnProperty(q)) {
+                
+                const r = w[q];
+                donetx.push(r.id);
+                var csd = await checkStoryDeleted((r.owner).address , r.id);
+                
+                if (csd === false) {
+                    pg += 1;
+                    txnow -= 1;
+                    $('#loadinglist').empty();
+                    var m = await showData(r);
+                    showCover(r.id);
+                    showTipped((r.owner).address , r.id);
+                    changeAuthorUsername((r.owner).address, r.id);
+                }else{
+                    txnow -= 1;
+                    $('#loadinglist').empty();
+                }
+
+                if (pg === 6 || txnow === 0) {
+                    alltx = await filterAfter(donetx,alltx);
+                    break;
+                }
+
+                
+            }
+        }
+    }
+    
+    console.log(alltx);
+}
+
+//CHECK UF STORY DELETED
+async function checkStoryDeleted(p, i) {
+    try {
+        const graphql = await fetch('https://arweave.dev/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
+        body: JSON.stringify({ 'query': 'query { transactions( owners:["'+p+'"] block: {min: 1} sort: HEIGHT_DESC tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "Reave-Type", values: ["Content-Story"] }, { name: "Reave-From-Tx", values: ["'+i+'"] }, { name: "Reave-Status", values: ["Deleted"] } ] ) { edges { node { id } } } }'}),
         })
         .then(res => res.json())
         .then(res => {
             return res.data;
         });
 
-        var egr = (graphql.transactions).edges;
-        let o = [];
-        for (const key in egr) {
-            if (egr.hasOwnProperty(key)) {
-                const element = egr[key];
-                o.push((element.node).id);
-                
-            }
+        var result = (graphql.transactions).edges;
+        var res = result.length;
+        if (res !== 0) {
+            return true;
+        } else {
+            return false;
         }
-
-        return o;
     } catch (error) {
         return false;
     }
 }
 
-//FILTER TRANSACTION
-async function filterTransactions(a , b) {
-    var ft = b.filter(
-        function(e) {
-            return this.indexOf(e) < 0;
-        },a
-    );
-    return ft;  
+//SHOWING DATA AFTER CHECK DELETED
+async function showData(a) {
+    var title = ((a.tags)[4]).value;
+    var category = ((a.tags)[5]).value;
+    var stamp = ((a.tags)[7]).value;
+    var id = a.id;
+    var owner = (a.owner).address;
+    var colorcat = await colorize(category);
+    var time = stamp.substring(0, 10);
+    var lastime = moment.unix(time).format("MMM Do YY");
+
+    var htm = '<div class="main-i"><a href="read.html?'+id+'"><img class="img-fluid" src="blank.png" alt="no image" id="image'+id+'"/></a> <a href="category.html?'+category+'"><h3 style="background-color:'+colorcat+';">'+category.toUpperCase()+'</h3></a><span class="share"></span> <h2><a href="read.html?'+id+'">'+title+'</a></h2> <h5>by <a href="author.html?'+owner+'" class="authorlink" id="'+id+owner+'"> loading ...</a><span id="iconverified'+id+owner+'"></span><span style="margin-left: 15px;"> &#128338; </span><span>'+lastime+'</span><span class="love-btn">&#128176;</span><span id="tipamount'+id+'"> loading ...</span></h5></div>';
+
+    $('#storylist').append(htm);
 }
 
-
-
-//PROCCESS TRANSACTION
-let c ;
-async function processTransactions() {
-    await showLoading();
-    
-    let b = await getTransactions();
-
-    if (b.length === 0) {
-        $('#loadinglist').empty();
-    } else {
-        let a = await getFilterTransactions();
-        c = await filterTransactions(a,b);
-        console.log(c);
-        let d = await getTransactionData(true);
-    }
-    
-    
-    
+//SHOW IMAGE COVER STORY
+async function showCover(s) {
+    try {
+        const d = await arweave.transactions.get(s);
+        const dt = d.get('data', { decode: true, string: true });
+        $("#image"+s).attr("src", dt);
+    } catch (error) {       
+    }   
 }
 
-processTransactions();
-
-//GET TRANSACTION DATA
-var countTx = 0 ;
-async function getTransactionData(sts) {
-
-    var qw = 0 + countTx;
-    var qe = countTx + 6;
-    var ca = c.slice(qw, qe);
-    var nums = ca.length;
-    let jsem = [];
-    console.log(ca);
-    let authorjson = []; 
-
-    if (ca.length !== 0) {
-        
-        if (sts !== true) {
-            await showLoading();
-        }
-    }
-
-    ca.forEach(async function(item, index) {
-        console.log(item);
-        try {
-            countTx += 1;
-            const d = await arweave.transactions.get(item);
-            const dcod = d.get('data', { decode: true, string: true });
-            var n = dcod.lastIndexOf('sdata:image/jpeg;base64');
-            var result = dcod.substring(n + 1);
-            result = result.substring(0, result.length - 32)
-
-            var author = await arweave.wallets.ownerToAddress(d.owner);
-            console.log(author);
-            var aa = getTag(d, 'Reave-Title');
-            console.log(aa);
-            var bb = getTag(d, 'Reave-Category');
-            var cl = await colorize(bb);
-            var dd = getTag(d, 'Reave-Stamp');
-            var dda = dd.substring(0, 10);
-            var ddb = moment.unix(dda).format("MMM Do YY");
-
-            var ajs = '{"id":"'+item+'", "author":"'+author+'"}';
-            var ajp = JSON.parse(ajs);
-            authorjson.push(ajp);
-            console.log(authorjson); 
-
-            var json = '{"a":"'+item+'","b":"'+result+'","c":"'+bb+'","d":"'+aa+'","f":"'+author+'","g":"'+dd+'","h":"'+ddb+'","i":"'+cl+'"}';
-            var jsor = JSON.parse(json);
-            jsem.push(jsor);
-            
-            nums -= 1;
-            if (nums === 0) {
-                const r = await appendJSON(jsem);
-                $('#loadinglist').empty();
-                const x = await changeAuthorUsername(authorjson);
-                
-                console.log('NUMS NULL');
-                $('#lodmr').show();
-                 
-            }
-            
-        } catch (error) {
-            nums -= 1;
-            countTx += 1;
-            console.log(error);
-        }
-    });
-
-    return nums;
-}
-
-//GET TAG DATA
-function getTag(tx, name) {
-    let tags = tx.get('tags');
-    for(let i = 0; i < tags.length; i++) {
-        try {
-            if(tags[i].get('name', { decode: true, string: true }) == name)
-            return tags[i].get('value', { decode: true, string: true })
-        } catch (e) {
-
-        }
-    }
-    return false;
-}
-
-//APPEND JSON
-async function appendJSON(j){
-    let i = j.sort(orderBy("-g"));
-    for (const key in i) {
-        if (i.hasOwnProperty(key)) {
-            const element = i[key];
-            console.log(element);
-
-            var htm = '<div class="main-i"><a href="read.html?'+element.a+'"><img class="img-fluid" src="'+element.b+'" /></a> <a href="category.html?'+element.c+'"><h3 style="background-color:'+element.i+';">'+element.c.toUpperCase()+'</h3></a><span class="share"></span> <h2><a href="read.html?'+element.a+'">'+element.d+'</a></h2> <h5>by <a href="author.html?'+element.f+'" class="authorlink" id="'+element.a+'"> loading ...</a><span id="iconverified'+element.a+'"></span><span style="margin-left: 15px;"> &#128338; </span><span>'+element.h+'</span><span class="love-btn">&#128176;</span><span id="tipamount'+element.a+'"> loading ...</span></h5></div>';
-
-            $('#storylist').append(htm);
-
-        }
-    }
-}
-
-//SORT JSON
-function orderBy(m) {
-    var n = 1;
-    if(m[0] === "-") {
-        n = -1;
-        m = m.substr(1);
-    }
-    return function (o,p) {
-        var q = (o[m] < p[m]) ? -1 : (o[m] > p[m]) ? 1 : 0;
-        return q * n;
-    }
-}
-
-//APPEND LOADING
-async function showLoading() {
-    var z = '<div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div> <div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div> <div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div> <div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div> <div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div> <div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div>';
-
-    $('#loadinglist').append(z);
+//SHOW IMAGE COVER STORY
+async function showTipped(o, t) {
+    try {
+        var val = await getIncentiveTx(t, o);
+        var ls = Number(val) * 0.1;
+        document.getElementById("tipamount"+t).innerText = ls;
+    } catch (error) {  
+        document.getElementById("tipamount"+t).innerText = '0.1';
+    }   
 }
 
 //GET COLOR FROM CATEGORY
@@ -250,94 +230,69 @@ async function colorize(c) {
         col = '#a20965';
     } else if(c === 'technology'){
         col = '#ffa530';
+    } 
+    
+    else if(c === 'film'){
+        col = '#d92a73';
+    } else if(c === 'gaming'){
+        col = '#246ead';
+    } else if(c === 'humor'){
+        col = '#434343';
+    } else if(c === 'tv'){
+        col = '#0caa35';
+    } else if(c === 'food'){
+        col = '#5454fc';
+    } else if(c === 'style'){
+        col = '#d3d30d';
+    } else if(c === 'travel'){
+        col = '#40e0d0';
+    } else if(c === 'fitness'){
+        col = '#ee82ee';
+    } else if(c === 'business'){
+        col = '#ff6347';
+    } else if(c === 'design'){
+        col = '#708090';
+    } else if(c === 'economy'){
+        col = '#a0522d';
+    } else if(c === 'media'){
+        col = '#ff0000';
+    } else if(c === 'startup'){
+        col = '#a20965';
+    } else if(c === 'job'){
+        col = '#ffa530';
     }
+
+    else if(c === 'productivity'){
+        col = '#d92a73';
+    } else if(c === 'money'){
+        col = '#246ead';
+    } else if(c === 'politic'){
+        col = '#434343';
+    } else if(c === 'election'){
+        col = '#0caa35';
+    } else if(c === 'crime'){
+        col = '#5454fc';
+    } else if(c === 'science'){
+        col = '#d3d30d';
+    } else if(c === 'ai'){
+        col = '#40e0d0';
+    } else if(c === 'family'){
+        col = '#ee82ee';
+    } else if(c === 'education'){
+        col = '#ff6347';
+    } else if(c === 'history'){
+        col = '#708090';
+    } else if(c === 'religion'){
+        col = '#a0522d';
+    } else if(c === 'world'){
+        col = '#ff0000';
+    } else if(c === 'security'){
+        col = '#a20965';
+    } 
 
     return col;
 }
 
-//CHANGE ADDRESS TO USERNAME
-async function changeAuthorUsername(a) {
-    
-    a.forEach(async function(i) {
-            try {
-                const contx = await arweave.arql({
-                    op: "and",
-                    expr1: {
-                    op: "equals",
-                        expr1: "from",
-                        expr2: i.author
-                    },
-                    expr2: {
-                        op:"equals",
-                        expr1:"Reave-Type",
-                        expr2: "profile"
-        
-                    }
-            })
-        
-                if (contx.length > 0) {
-                    const profileTx     = await arweave.transactions.get(contx[0]);
-                    const profileTxData = profileTx.get('data', { decode: true, string: true });
-                    console.log(profileTxData);
-                    let profileTxDatare = profileTxData.split('hcseu83h387svlnv8');
-                    
-                    document.getElementById(i.id).innerText = (profileTxDatare[0]).slice(0,12);
-
-                    const h = await checkVerified(i.author);
-                    var vr = '<img src="svg/verified.svg" class="verifiedsvg" title="verified author">';
-                    if (h === false) {
-                        document.getElementById('iconverified'+i.id).innerHTML = vr;
-                    }
-                    
-                    const f = await getIncentiveTx(i.id , i.author);
-                    var ls = Number(f) * 0.1;
-                    document.getElementById('tipamount'+i.id).innerText = ls+' AR';
-        
-                }else {
-                    document.getElementById(i.id).innerText = (i.author).slice(0,12);
-                }
-        } catch (e) {
-            document.getElementById(i.id).innerText = (i.author).slice(0,12);
-        }      
-    });
-}
-
-//CHECK VERIFIED ACCOUNT
-async function checkVerified(e){
-    try {
-        const contx = await arweave.arql({
-            op: "and",
-            expr1: {
-                op: "equals",
-                    expr1: "from",
-                    expr2: i.author
-                },
-            expr2: {
-                op: "and",
-                expr1: {
-                    op: "equals",
-                        expr1: "to",
-                        expr2: "OesddStCpX7gW3ZWxO93GnU7wRYjAQIJUA8c7KkID2M"
-                    },
-                expr2: {
-                    op:"equals",
-                    expr1:"Reave-Type",
-                    expr2: "Verified"
-
-                }
-
-            }
-        })
-
-        if (contx.length !== 0) {
-            return true;
-        }else{
-            return false;
-        }
-    } catch (error) {
-        return false;
-    }
-}
 
 //GET INCENTIVE TX
 async function getIncentiveTx(t, o) {
@@ -345,7 +300,7 @@ async function getIncentiveTx(t, o) {
         const graphql = await fetch('https://arweave.dev/graphql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
-        body: JSON.stringify({ 'query': 'query { transactions( block: {min: 1} recipients:["'+o+'"] sort: HEIGHT_DESC tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "App-Version", values: ["2.1"] }, { name: "Reave-Type", values: ["Incentive"] }, { name: "Reave-Url", values: ["'+t+'"] } ] ) { edges { node { id quantity { winston ar } } } } }'}),
+        body: JSON.stringify({ 'query': 'query { transactions( block: {min: 1} recipients:["'+o+'"] sort: HEIGHT_DESC tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "Reave-Type", values: ["Incentive"] }, { name: "Reave-Url", values: ["'+t+'"] } ] ) { edges { node { id quantity { winston ar } } } } }'}),
         })
         .then(res => res.json())
         .then(res => {
@@ -364,7 +319,6 @@ async function getIncentiveTx(t, o) {
                     if (qt === '100000000000') {
                         hit += 1;
                     }
-        
                     count -= 1;
                     if (count === 0) {
                         console.log(hit);
@@ -373,12 +327,89 @@ async function getIncentiveTx(t, o) {
                     }
                 }
             }
-
         } else {
             return '0';
-        }
-        
+        }   
     } catch (error) {
         return '0';
     }
+}
+
+//CHANGE ADDRESS TO USERNAME
+async function changeAuthorUsername(aut, id) {
+    
+    try {
+
+    const graphql = await fetch('https://arweave.dev/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
+        body: JSON.stringify({ 'query': 'query { transactions( first:1 block: {min: 1} owners:["'+aut+'"] recipients:["XeZdK2OK6ocyRxl9Cp9GujgKzg9X79p24Zn9sQOCUxc"] sort: HEIGHT_DESC tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "Reave-Type", values: ["Profile"] }] ) { edges { node { id quantity { winston ar } tags {name value}} } } }'}),
+        })
+        .then(res => res.json())
+        .then(res => {
+            return res.data;
+        });
+
+    var y = (graphql.transactions).edges;
+
+    if (y.length > 0) {
+        
+        var sw = ((((y[0]).node).tags)[3]).value;
+        
+        document.getElementById(id+aut).innerText = (sw.slice(0,15));
+
+    }else {
+        document.getElementById(id+aut).innerText = (aut).slice(0,15);
+    }
+
+    const h = await checkVerified(aut);
+        var vr = '<img src="svg/verified.svg" class="verifiedsvg" title="verified author">';
+        if (h === true) {
+            document.getElementById('iconverified'+id+aut).innerHTML = vr;
+        }
+                
+    } catch (e) {
+        document.getElementById(id+aut).innerText = (aut).slice(0,15);
+    }      
+
+}
+
+
+//CHECK VERIFIED ACCOUNT
+async function checkVerified(e){
+    try {
+    
+        const graphql = await fetch('https://arweave.dev/graphql', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
+            body: JSON.stringify({ 'query': 'query { transactions( first:1 block: {min: 1} owners:["'+e+'"] recipients:["XeZdK2OK6ocyRxl9Cp9GujgKzg9X79p24Zn9sQOCUxc"] sort: HEIGHT_DESC tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "Reave-Type", values: ["Verified"] }] ) { edges { node { id quantity { winston ar }} } } }'}),
+            })
+            .then(res => res.json())
+            .then(res => {
+                return res.data;
+            });
+    
+        var x = (graphql.transactions).edges;
+
+        if (x.length !== 0) {
+            var qt = ((x.node).quantity).winston;
+            if (qt === '1000000000000') {
+                return true;
+            } else {
+                return false;
+            }
+        }else{
+            return false;
+        }
+
+    } catch (error) {
+        return false;
+    }
+}
+
+//APPEND LOADING
+async function showLoading() {
+    var z = '<div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div> <div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div> <div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div> <div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div> <div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div> <div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div>';
+
+    $('#loadinglist').append(z);
 }

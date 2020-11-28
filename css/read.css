@@ -15,6 +15,10 @@ img{
     height: auto;
 }
 
+p {
+    word-break: break-all;
+}
+
 blockquote{
     background-color: #f1f6fb;
     padding: 20px;
@@ -74,6 +78,7 @@ ol , ul{
 
 .buttoncontent {
     margin-top: 50px;
+    display: flex;
 }
 
 .buttontip {
@@ -86,6 +91,7 @@ ol , ul{
     margin-right: 10px;
     font-weight: 500;
     margin-bottom: 10px;
+    width: 100%;
 }
 
 .buttontip:hover {

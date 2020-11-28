@@ -35,7 +35,7 @@ async function getAll() {
 
             var t = '<div class="cont-title">'+aa+'</div>';
             var at = '<div class="cont-attr">By <span><a href="author.html?'+u+'" class="authlink">'+ut+' </a><img src="svg/verified.svg" class="verifiedsvg" title="verified author" style="display:'+dis+'"></span> <span class="titik" style="margin-left:12px;">.</span> <span> &#128338; '+ddb+'</span> <span class="titik">.</span> <span id="tip">&#128176; '+ls+' AR</span><div class="socialicon"><img title="Share to Facebook" onclick="shareFb()" class="svgicon" src="svg/facebook.svg"><img title="Share to Twitter" onclick="shareTw()" class="svgicon" src="svg/twitter.svg"><img title="Share to Linkedin" onclick="shareIn()" class="svgicon" src="svg/linkedin.svg"><img title="Share to Mail" onclick="shareEm()" class="svgicon" src="svg/letter.svg"></div></div>';
-            var c = '<div class="cont-main">'+s+'</div>';
+            var c = '<div class="cont-main">'+(JSON.parse(s))[1]+'</div>';
             var d = '<div class="buttoncontent"><button class="buttontip" id="tipbut" onclick="sendTips()">&#128176; Tip 0.1 AR</button><button class="buttontip">&#128172; Show comments</button><button id="alerts" class="buttontip" hidden></button></div>';
             $('#loding').hide();
             $('#contentplace').append(t+at+c+d);
@@ -52,7 +52,7 @@ async function getTxFromAuthorAndTxid(u) {
         const graphql = await fetch('https://arweave.dev/graphql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
-        body: JSON.stringify({ 'query': 'query { transactions( owners:["'+u+'"] tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "App-Version", values: ["2.1"] }, { name: "Reave-Type", values: ["Content-Story"] }, { name: "Reave-From-Tx", values: ["'+url+'"] } ] ) { edges { node { id } } } }'}),
+        body: JSON.stringify({ 'query': 'query { transactions( owners:["'+u+'"] tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "Reave-Type", values: ["Content-Story"] }, { name: "Reave-From-Tx", values: ["'+url+'"] } ] ) { edges { node { id } } } }'}),
         })
         .then(res => res.json())
         .then(res => {
@@ -60,6 +60,7 @@ async function getTxFromAuthorAndTxid(u) {
         });
         
         var egr = (graphql.transactions).edges;
+        console.log(egr);
         return ((egr[0]).node).id;
     } catch (error) {
         return false;
@@ -115,7 +116,6 @@ async function changeAuthorUsername(a) {
     } catch (e) {
         return a;
     }      
-
 }
 
 //GET TAG DATA
@@ -246,35 +246,30 @@ async function getIncentiveTx(t, o) {
 //CHECK VERIFIED ACCOUNT
 async function checkVerified(e){
     try {
-        const contx = await arweave.arql({
-            op: "and",
-            expr1: {
-                op: "equals",
-                    expr1: "from",
-                    expr2: i.author
-                },
-            expr2: {
-                op: "and",
-                expr1: {
-                    op: "equals",
-                        expr1: "to",
-                        expr2: "OesddStCpX7gW3ZWxO93GnU7wRYjAQIJUA8c7KkID2M"
-                    },
-                expr2: {
-                    op:"equals",
-                    expr1:"Reave-Type",
-                    expr2: "Verified"
+    
+        const graphql = await fetch('https://arweave.dev/graphql', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
+            body: JSON.stringify({ 'query': 'query { transactions( first:1 block: {min: 1} owners:["'+e+'"] recipients:["XeZdK2OK6ocyRxl9Cp9GujgKzg9X79p24Zn9sQOCUxc"] sort: HEIGHT_DESC tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "Reave-Type", values: ["Verified"] }] ) { edges { node { id quantity { winston ar }} } } }'}),
+            })
+            .then(res => res.json())
+            .then(res => {
+                return res.data;
+            });
+    
+        var x = (graphql.transactions).edges;
 
-                }
-
+        if (x.length !== 0) {
+            
+            if ((x.quantity).winston === '1000000000000') {
+                return true;
+            } else {
+                return false;
             }
-        })
-
-        if (contx.length !== 0) {
-            return true;
         }else{
             return false;
         }
+
     } catch (error) {
         return false;
     }
@@ -282,17 +277,17 @@ async function checkVerified(e){
 
 //Share
 function shareFb() {
-    window.open('https://www.facebook.com/sharer/sharer.php?u=https://arweave.net/'+url, '_blank');
+    window.open('https://www.facebook.com/sharer/sharer.php?u=https://reave.me/read.html?'+url, '_blank');
 }
 
 function shareTw() {
-    window.open('https://twitter.com/intent/tweet?url=https://arweave.net/'+url, '_blank');
+    window.open('https://twitter.com/intent/tweet?url=https://reave.me/read.html?'+url, '_blank');
 }
 
 function shareIn() {
-    window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://arweave.net/'+url, '_blank');
+    window.open('https://www.linkedin.com/shareArticle?mini=true&url=https://reave.me/read.html?'+url, '_blank');
 }
 
 function shareEm() {
-    window.open('mailto:info@example.com?&subject=&body=https://arweave.net/'+url, '_blank');
+    window.open('mailto:info@example.com?&subject=&body=https://reave.me/read.html?'+url, '_blank');
 }

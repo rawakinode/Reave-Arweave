@@ -12,15 +12,14 @@
 </head>
 <body>
 
-<div class="header">
-    <h1>reave.me</h1><span class="navbar"><a href="index.html">Home</a><a href="#">My Stories</a><a href="new.html">Write Story</a><a id="logstatus" href="login.html">Login</a></span><span class="iconnav" onclick="opennav()"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiLz48L3N2Zz4=" alt="" class="filter-white"></span>
-</div>
-
-<div class="mainside" id="mainside"></div>
-
-<div class="sidebar" id="sidebar">
-    <a href="index.html">Home</a><a href="#">My Stories</a><a href="new.html">Write Story</a><a href="login.html">Login</a>
-</div>
+    <div class="header">
+        <h1>reave.me</h1><span class="navbar"><a href="index.html">Home</a><a href="profile.html">Dashboard</a><a href="new.html">Write Story</a><a id="logstatus" href="login.html">Login</a></span><span class="iconnav" onclick="opennav()"><img src="svg/menu.svg" alt="" class="filter-white"></span>
+    </div>
+    <div class="mainside" id="mainside"></div>
+    
+    <div class="sidebar" id="sidebar">
+        <a href="index.html">Home</a><a href="profile.html">Dashboard</a><a href="new.html">Write Story</a><a href="login.html">Login</a>
+    </div>
 
 
 <div class="main">
@@ -45,18 +44,46 @@
             <span class="category-id" onclick="selectCategory('art')" id="art">ART</span>
             <span class="category-id" onclick="selectCategory('blockchain')" id="blockchain">BLOCKCHAIN</span>
             <span class="category-id" onclick="selectCategory('books')" id="books">BOOKS</span>
+            <span class="category-id" onclick="selectCategory('film')" id="film">FILM</span>
+            <span class="category-id" onclick="selectCategory('food')" id="food">FOOD</span>
+            <span class="category-id" onclick="selectCategory('gaming')" id="gaming">GAMING</span>
             <span class="category-id" onclick="selectCategory('cryptocurrency')" id="cryptocurrency">CRYPTOCURRENCY</span>
+            <span class="category-id" onclick="selectCategory('humor')" id="humor">HUMOR</span>
             <span class="category-id" onclick="selectCategory('conference')" id="conference">CONFERENCE</span>
             <span class="category-id" onclick="selectCategory('financial')" id="financial">FINANCIAL</span>
             <span class="category-id" onclick="selectCategory('history')" id="history">HISTORY</span>
             <span class="category-id" onclick="selectCategory('health')" id="health">HEALTH</span>
+            <span class="category-id" onclick="selectCategory('music')" id="music">MUSIC</span>
             <span class="category-id" onclick="selectCategory('investment')" id="investment">INVESTMENT</span>
             <span class="category-id" onclick="selectCategory('ico')" id="ico">ICO</span>
-            <span class="category-id" onclick="selectCategory('music')" id="music">MUSIC</span>
             <span class="category-id" onclick="selectCategory('news')" id="news">NEWS</span>
             <span class="category-id" onclick="selectCategory('sport')" id="sport">SPORT</span>
             <span class="category-id" onclick="selectCategory('science')" id="science">SCIENCE</span>
+            <span class="category-id" onclick="selectCategory('tv')" id="tv">TV</span>
             <span class="category-id" onclick="selectCategory('technology')" id="technology">TECHNOLOGY</span>
+            <span class="category-id" onclick="selectCategory('style')" id="style">STYLE</span>
+            <span class="category-id" onclick="selectCategory('travel')" id="travel">TRAVEL</span>
+            <span class="category-id" onclick="selectCategory('fitness')" id="fitness">FITNESS</span>
+            <span class="category-id" onclick="selectCategory('business')" id="business">BUSINESS</span>
+            <span class="category-id" onclick="selectCategory('design')" id="design">DESIGN</span>
+            <span class="category-id" onclick="selectCategory('economy')" id="economy">ECONOMY</span>
+            <span class="category-id" onclick="selectCategory('media')" id="media">MEDIA</span>
+            <span class="category-id" onclick="selectCategory('startup')" id="startup">STARTUP</span>
+            <span class="category-id" onclick="selectCategory('job')" id="job">JOB</span>
+            <span class="category-id" onclick="selectCategory('productivity')" id="productivity">PRODUCTIVITY</span>
+            <span class="category-id" onclick="selectCategory('money')" id="money">MONEY</span>
+            <span class="category-id" onclick="selectCategory('politic')" id="politic">POLITIC</span>
+            <span class="category-id" onclick="selectCategory('election')" id="election">ELECTION</span>
+            <span class="category-id" onclick="selectCategory('crime')" id="crime">CRIME</span>
+            <span class="category-id" onclick="selectCategory('programming')" id="programming">PROGRAMMING</span>
+            <span class="category-id" onclick="selectCategory('science')" id="science">SCIENCE</span>
+            <span class="category-id" onclick="selectCategory('ai')" id="ai">AI</span>
+            <span class="category-id" onclick="selectCategory('family')" id="family">FAMILY</span>
+            <span class="category-id" onclick="selectCategory('education')" id="education">EDUCATION</span>
+            <span class="category-id" onclick="selectCategory('history')" id="history">HISTORY</span>
+            <span class="category-id" onclick="selectCategory('religion')" id="religion">RELIGION</span>
+            <span class="category-id" onclick="selectCategory('world')" id="world">WORLD</span>
+            <span class="category-id" onclick="selectCategory('security')" id="security">SECURITY</span>
         </div>
 
         <div class="editor-informations bs">
@@ -68,7 +95,12 @@
             <button class="thumbbtnremove" onclick="removethumbnail()" id="removethumbnail" hidden>remove thumbnail</button>
         </div>
     
-        <div class="othery br" onclick="checkData()" id="publishBtn">PUBLISH </div><span class="fee"> Fee : 0.05 AR</span>
+        <div class="btnbox">
+            <div class="othery br" onclick="preview()" id="publishBtn">PREVIEW</div>
+        <div class="othery br" onclick="checkData()" id="publishBtn">PUBLISH</div>
+        </div>
+        <div class="fee"></div>
+
 
         <div class="popup" id="popup" hidden>
             <div class="itempopup">
@@ -97,7 +129,7 @@
 <script src="https://unpkg.com/arweave/bundles/web.bundle.min.js"></script>
 <script src="script/arweave.js"></script>
 <script src="script/smartweave.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="script/jquery.min.js"></script>
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <script src="script/new.js"></script>

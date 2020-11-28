@@ -46,6 +46,22 @@
         text-align: center;
         display: block;
     }
+
+    .othery {
+        width: 100%;
+    }
+
+    .btnbox {
+        width: 100%;
+    }
+
+    .pfbox {
+        display: block;
+    }
+
+    .profilbox {
+        width: auto;
+    }
 }
 @media only screen and (max-width: 600px) {
     .main-a{
@@ -94,6 +110,12 @@
 }
 
 @media only screen and (max-width: 450px) {
+
+    .buttoncontent {
+        display: block;
+    }
+    
+
     .main-a{
         max-width: 100%;
     }

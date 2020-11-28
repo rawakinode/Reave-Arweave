@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Reave - Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="script/session.js"></script>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/profile.css">
+<link rel="stylesheet" href="css/loading.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+</head>
+<body>
+
+    <div class="header">
+        <h1>reave.me</h1><span class="navbar"><a href="index.html">Home</a><a href="profile.html">Dashboard</a><a href="new.html">Write Story</a><a id="logstatus" href="login.html">Login</a></span><span class="iconnav" onclick="opennav()"><img src="svg/menu.svg" alt="" class="filter-white"></span>
+    </div>
+    <div class="mainside" id="mainside"></div>
+    
+    <div class="sidebar" id="sidebar">
+        <a href="index.html">Home</a><a href="profile.html">Dashboard</a><a href="new.html">Write Story</a><a href="login.html">Login</a>
+    </div>
+
+
+<div class="main">
+    <div class="main-a">
+        <div class="mtit">profile.</div>
+        <div class="pfbox">
+            <div class="profilbox bs">
+                <div id="showprofil">
+                    <div class="editpf" id="yeditbtn" hidden>
+                        <img src="svg/edit.svg" title="Edit Profile" onclick="showEditProfile()">
+                    </div>
+                    <div class="pfcover" id="ycover" hidden>
+                        <img src="author.jpg" alt="" id="xcover">
+                    </div>
+                    <div class="pfname" id="xname" hidden>
+                        
+                    </div>
+                    <div class="pfdesc" id="xdesc" hidden>
+                        
+                    </div>
+                </div>
+
+                <div id="showedit" hidden>
+                    <canvas id="canvasx" hidden></canvas>
+                    <input type="file" accept=".png,.jpeg,.jpg" name="files" id="uploadsfiles" onchange="setImageCover(this.files)" hidden>
+                    <div class="editcover" onclick="openFiles()" id="editcover">
+                        <img src="svg/add.svg" alt="">
+                    </div>
+                    <div class="pfcover">
+                        <img src="" id="coversets" style="display: none;" onclick="openFiles()" >
+                    </div>
+                    <div class="editname">
+                        <input type="text" maxlength="15" placeholder="Your name (max 15)" id="inputname" />
+                        <input type="text" maxlength="20" placeholder="Your site (max 20)" id="inputsite" />
+                    </div>
+                    <div class="editdesc">
+                        <textarea name="desc" placeholder="Your descriptions (max 100)" id="inputdesc"></textarea>
+                    </div>
+                    <div class="actionbutton">
+                        <button onclick="hideEditProfile()">Close</button><button id="saved" onclick="saveProfile()">Save</button>
+                    </div>
+                    <div class="alertbox" id="alertbox" onclick="this.style.display='none'" hidden>
+                        
+                    </div>
+                </div>
+                
+
+            </div>
+            <div class="profilbox bs">
+                <div class="pfstatus" id="xstatus" style="display: none;">
+                    <div class="statbox">
+                        <div class="statup" id="xstat1"></div>
+                        <div class="statdown">Story<br/>Published</div>
+                    </div>
+                    <div class="statbox">
+                        <div class="statup" id="xstat2"></div>
+                        <div class="statdown">Reward<br/>Earned</div>
+                    </div>
+                    <div class="statbox">
+                        <div class="statup" id="xstat3"></div>
+                        <div class="statdown">Reward<br/>Sent</div>
+                    </div>
+                </div>
+                <div class="pfwallet" id="xwallet" hidden>
+                     
+                </div>
+                <div class="pfbalance" id="xbalance" hidden>
+                    
+               </div>
+               <div class="pfwebsite" id="xsite" hidden>
+                
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="mtit">all stories.</div>
+        <div id="storylist">
+
+        </div>
+
+        <div id="loadinglist">
+            
+            
+        </div>
+        
+        
+    </div>
+    <div class="other" id="lodmr" onclick="checkAndShowData('more')" style="display: none;">MORE STORIES +</div>
+
+    <div class="popup" id="popup" hidden>
+        <div class="itempopup">
+            <div class="poptitle" id="poptitle">Are you sure DELETE this story ?</div>
+            <div class="popbtn">
+                <div class="otherx bgr" onclick="cancelDelete()" id="no">CANCEL</div>
+                <div class="otherx bgb" onclick="processDelete()" id="yes">YES</div>
+           </div>
+            
+        </div>
+    </div>
+
+    <div class="popup" id="loading" hidden>
+        <div class="itemloading">
+            <span id="loading"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBzdHlsZT0ibWFyZ2luOiBhdXRvOyBiYWNrZ3JvdW5kOiBub25lOyBkaXNwbGF5OiBibG9jazsgc2hhcGUtcmVuZGVyaW5nOiBhdXRvOyIgd2lkdGg9IjIxMHB4IiBoZWlnaHQ9IjIxMHB4IiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQiPgo8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIzOCIgc3Ryb2tlLXdpZHRoPSI2IiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS1kYXNoYXJyYXk9IjU5LjY5MDI2MDQxODIwNjA2NiA1OS42OTAyNjA0MTgyMDYwNjYiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+CiAgPGFuaW1hdGVUcmFuc2Zvcm0gYXR0cmlidXRlTmFtZT0idHJhbnNmb3JtIiB0eXBlPSJyb3RhdGUiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBkdXI9IjAuNzYzMzU4Nzc4NjI1OTU0MXMiIGtleVRpbWVzPSIwOzEiIHZhbHVlcz0iMCA1MCA1MDszNjAgNTAgNTAiPjwvYW5pbWF0ZVRyYW5zZm9ybT4KPC9jaXJjbGU+CjwhLS0gW2xkaW9dIGdlbmVyYXRlZCBieSBodHRwczovL2xvYWRpbmcuaW8vIC0tPjwvc3ZnPg==" alt="loading" width="50"></span>
+        </div>
+    </div>
+
+</div>
+
+<script src="script/jquery.min.js"></script>
+<script src="script/moment.js"></script>
+<script src="script/navigation.js"></script>
+<script src="script/logout.js"></script>
+<script src="https://unpkg.com/arweave/bundles/web.bundle.min.js"></script>
+<script src="script/arweave.js"></script>
+<script src="script/profile.js"></script>
+
+</body>
+</html>

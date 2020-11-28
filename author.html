@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Reave - Authors</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/profile.css">
+<link rel="stylesheet" href="css/loading.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+</head>
+<body>
+
+    <div class="header">
+        <h1>reave.me</h1><span class="navbar"><a href="index.html">Home</a><a href="profile.html">Dashboard</a><a href="new.html">Write Story</a><a id="logstatus" href="login.html">Login</a></span><span class="iconnav" onclick="opennav()"><img src="svg/menu.svg" alt="" class="filter-white"></span>
+    </div>
+    <div class="mainside" id="mainside"></div>
+    
+    <div class="sidebar" id="sidebar">
+        <a href="index.html">Home</a><a href="profile.html">Dashboard</a><a href="new.html">Write Story</a><a href="login.html">Login</a>
+    </div>
+
+
+<div class="main">
+    <div class="main-a">
+        <div class="mtit">authors.</div>
+        <div class="pfbox">
+            <div class="profilbox bs">
+                <div id="showprofil">
+                    <div class="pfcover" id="ycover" hidden>
+                        <img src="author.jpg" alt="" id="xcover">
+                    </div>
+                    <div class="pfname" id="xname" hidden>
+                        
+                    </div>
+                    <div class="pfdesc" id="xdesc" hidden>
+                        
+                    </div>
+                </div>
+
+            </div>
+            <div class="profilbox bs">
+                <div class="pfstatus" id="xstatus" style="display: none;">
+                    <div class="statbox">
+                        <div class="statup" id="xstat1"></div>
+                        <div class="statdown">Story<br/>Published</div>
+                    </div>
+                    <div class="statbox">
+                        <div class="statup" id="xstat2"></div>
+                        <div class="statdown">Reward<br/>Earned</div>
+                    </div>
+                    <div class="statbox">
+                        <div class="statup" id="xstat3"></div>
+                        <div class="statdown">Reward<br/>Sent</div>
+                    </div>
+                </div>
+                <div class="pfwallet" id="xwallet" hidden>
+                     
+                </div>
+                <div class="pfbalance" id="xbalance" hidden>
+                    
+               </div>
+               <div class="pfwebsite" id="xsite" hidden>
+                
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="mtit">all stories.</div>
+        <div id="storylist">
+
+        </div>
+
+        <div id="loadinglist">
+            
+            
+        </div>
+        
+        
+    </div>
+    <div class="other" id="lodmr" onclick="checkAndShowData('more')" style="display: none;">MORE STORIES +</div>
+    
+</div>
+
+<script src="script/jquery.min.js"></script>
+<script src="script/moment.js"></script>
+<script src="script/navigation.js"></script>
+<script src="script/logout.js"></script>
+<script src="https://unpkg.com/arweave/bundles/web.bundle.min.js"></script>
+<script src="script/arweave.js"></script>
+<script src="script/author.js"></script>
+
+</body>
+</html>

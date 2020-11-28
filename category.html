@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Reave | Category</title>
+<title>Reave - Category</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/loading.css">
@@ -10,14 +10,14 @@
 </head>
 <body>
 
-<div class="header">
-    <h1>reave.me</h1><span class="navbar"><a href="index.html">Home</a><a href="#">My Stories</a><a href="new.html">Write Story</a><a id="logstatus" href="login.html">Login</a></span><span class="iconnav" onclick="opennav()"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiLz48L3N2Zz4=" alt="" class="filter-white"></span>
-</div>
-<div class="mainside" id="mainside"></div>
-
-<div class="sidebar" id="sidebar">
-    <a href="index.html">Home</a><a href="#">My Stories</a><a href="new.html">Write Story</a><a href="login.html">Login</a>
-</div>
+    <div class="header">
+        <h1>reave.me</h1><span class="navbar"><a href="index.html">Home</a><a href="profile.html">Dashboard</a><a href="new.html">Write Story</a><a id="logstatus" href="login.html">Login</a></span><span class="iconnav" onclick="opennav()"><img src="svg/menu.svg" alt="" class="filter-white"></span>
+    </div>
+    <div class="mainside" id="mainside"></div>
+    
+    <div class="sidebar" id="sidebar">
+        <a href="index.html">Home</a><a href="profile.html">Dashboard</a><a href="new.html">Write Story</a><a href="login.html">Login</a>
+    </div>
 
 
 <div class="main">
@@ -34,11 +34,11 @@
         
         
     </div>
-    <div class="other" id="lodmr" onclick="getTransactionData()" style="display: none;">MORE STORIES</div>
+    <div class="other" id="lodmr" onclick="checkAndShowData('more')" style="display: none;">MORE STORIES +</div>
     
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="script/jquery.min.js"></script>
 <script src="script/moment.js"></script>
 <script src="script/navigation.js"></script>
 <script src="script/logout.js"></script>

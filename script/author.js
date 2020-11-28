@@ -1,4 +1,105 @@
-//Start Story.js
+
+var urlauthor = window.location.search;
+var importAddr = urlauthor.substring(1);
+
+$('#cattitle').append(urlauthor+'.');
+var time = Date.now();
+var imgBase64 = '';
+var lsg = localStorage.getItem('Profile-Name');
+console.log(lsg);
+
+startShowProfiles();
+//START SHOW PROFILE
+async function startShowProfiles() {
+    let a = await getProfilTransactions();
+    var getimage = await getImageData(a.id)
+    var saldo = await getBalanceWallet();
+    let stat1 = await getTransactions();
+    let stat2 = await getRewardEarnedTotal();
+    let stat3 = await getRewardSentTotal();
+    
+    if(a !== false){
+        console.log(a);
+        domProfile(getimage,((a.tags)[3]).value,((a.tags)[5]).value,((a.tags)[4]).value,saldo,stat1,stat2,stat3);
+    }else{
+        domProfile('noimage.png','No name.','No description.','No site.',saldo,'0','0','0');
+    }
+}
+
+//DOM PROFILE
+function domProfile(a,b,c,d,e,f,g,h) {
+    $("#xcover").attr("src", a);
+    document.getElementById('xname').innerText = b;
+    document.getElementById('xdesc').innerText = c;
+    document.getElementById('xsite').innerText = d;
+
+    document.getElementById('xwallet').innerText = importAddr;
+    document.getElementById('xbalance').innerText = e+' AR';
+
+    document.getElementById('xstat1').innerText = f.length;
+    document.getElementById('xstat2').innerText = g;
+    document.getElementById('xstat3').innerText = h;
+
+    $('#yeditbtn').fadeIn();
+    $('#ycover').fadeIn();
+    $('#xname').fadeIn();
+    $('#xdesc').fadeIn();
+    $('#xsite').fadeIn();
+    $('#xwallet').fadeIn();
+    $('#xbalance').fadeIn();
+    $('#xstatus').fadeIn();
+}
+
+//GET PROFILE TX
+async function getProfilTransactions() {
+    try {
+        const graphql = await fetch('https://arweave.dev/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
+        body: JSON.stringify({ 'query': 'query { transactions( first:1 sort: HEIGHT_DESC owners:["'+importAddr+'"] recipients:["XeZdK2OK6ocyRxl9Cp9GujgKzg9X79p24Zn9sQOCUxc"] tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "Reave-Type", values: ["Profile"] } ] ) { edges { node { id quantity {winston ar} tags {name value}} } } }'}),
+        })
+        .then(res => res.json())
+        .then(res => {
+            return res.data;
+        });
+        
+        var res = (((graphql.transactions).edges)[0]).node;
+        if ((res.quantity).winston === "100000000000") {
+            return res;
+        } else {
+            return false;
+        }
+        
+    } catch (error) {
+        return false;
+    }
+}
+
+//GET IMAGE DATA
+async function getImageData(t) {
+    try {
+        const d = await arweave.transactions.get(t);
+        const dt = d.get('data', { decode: true, string: true });
+        return dt;
+    } catch (error) {
+        return '';
+    }
+}
+
+// GET WALLET BALANCE
+async function getBalanceWallet(){
+    try {
+        return arweave.wallets.getBalance(importAddr).then((balance) => {
+            //let winston = balance;
+            let ar = arweave.ar.winstonToAr(balance);
+            return ar;
+        });
+    } catch (error) {
+        return '0';
+    }
+}
+
+//Start Profile.js
 let alltx = [];
 let donetx = [];
 var txnow = 0;
@@ -8,7 +109,9 @@ async function runningData() {
     let a = await getTransactions();
     console.log(a);
     let b = await getFilterTransactions();
+    console.log(b);
     let c = await filterTransactions(b,a);
+    console.log(c);
     alltx = c;
     txnow = alltx.length;
     $('#loadinglist').empty();
@@ -24,7 +127,7 @@ async function getTransactions() {
         const graphql = await fetch('https://arweave.dev/graphql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
-        body: JSON.stringify({ 'query': 'query { transactions( first:100000 block: {min: 1} sort: HEIGHT_DESC tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "Reave-Type", values: ["Tags-Story"] }, { name: "App-Version", values: ["3.0"] } ] ) { edges { node { id quantity {ar winston} owner {address} tags {name value}} } } }'}),
+        body: JSON.stringify({ 'query': 'query { transactions( owners:["'+importAddr+'"] first:100000 block: {min: 1} sort: HEIGHT_DESC tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "Reave-Type", values: ["Tags-Story"] }, { name: "App-Version", values: ["3.0"] } ] ) { edges { node { id quantity {ar winston} owner {address} tags {name value}} } } }'}),
         })
         .then(res => res.json())
         .then(res => {
@@ -61,6 +164,7 @@ async function filterTransactions(a , b) {
         if (a.hasOwnProperty(key)) {
             const le = a[key];
             const index = yu.findIndex(x => x.id === le);
+            console.log(index);
             if (index !== undefined && index > -1){
                 yu.splice(index, 1);
             }
@@ -104,19 +208,20 @@ async function checkAndShowData(r) {
                 donetx.push(r.id);
                 var csd = await checkStoryDeleted((r.owner).address , r.id);
                 console.log(csd);
+
                 if (csd === false) {
                     pg += 1;
-                    txnow -= 1;
                     $('#loadinglist').empty();
                     var m = await showData(r);
                     showCover(r.id);
                     showTipped((r.owner).address , r.id);
                     changeAuthorUsername((r.owner).address, r.id);
+                    txnow -= 1;
                 }else{
                     $('#loadinglist').empty();
                     txnow -= 1;
                 }
-
+                
                 if (pg === 6 || txnow === 0) {
                     alltx = await filterAfter(donetx,alltx);
                     break;
@@ -330,6 +435,7 @@ async function getIncentiveTx(t, o) {
     }
 }
 
+
 //CHANGE ADDRESS TO USERNAME
 async function changeAuthorUsername(aut, id) {
     
@@ -407,4 +513,88 @@ async function showLoading() {
     var z = '<div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div> <div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div> <div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div> <div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div> <div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div> <div class="main-i"> <div class="lod-cover loading"></div> <div class="lod-category loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> <div class="lod-title loading"></div> </div>';
 
     $('#loadinglist').append(z);
+}
+
+
+//GET REWARD EARNED TOTAL
+async function getRewardEarnedTotal() {
+    try {
+        const graphql = await fetch('https://arweave.dev/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
+        body: JSON.stringify({ 'query': 'query { transactions( block: {min: 1} recipients:["'+importAddr+'"] sort: HEIGHT_DESC tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "Reave-Type", values: ["Incentive"] } ] ) { edges { node { id quantity { winston ar } } } } }'}),
+        })
+        .then(res => res.json())
+        .then(res => {
+            return res.data;
+        });
+
+        var itx = (graphql.transactions).edges;
+        var hit = 0;
+        var count = itx.length;
+        if (count > 0) {
+
+            for (const key in itx) {
+                if (itx.hasOwnProperty(key)) {
+                    const e = itx[key];
+                    var qt = ((e.node).quantity).winston;
+                    if (qt === '100000000000') {
+                        hit += 1;
+                    }
+                    count -= 1;
+                    if (count === 0) {
+                        console.log(hit);
+                        return hit;
+                        
+                    }
+                }
+            }
+        } else {
+            return '0';
+        }   
+    } catch (error) {
+        return '0';
+    }
+}
+
+
+//GET REWARD SENT TOTAL
+async function getRewardSentTotal() {
+    try {
+        const graphql = await fetch('https://arweave.dev/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
+        body: JSON.stringify({ 'query': 'query { transactions( block: {min: 1} owners:["'+importAddr+'"] sort: HEIGHT_DESC tags: [ { name: "App-Name", values: ["Reave-Apps"] }, { name: "Reave-Type", values: ["Incentive"] } ] ) { edges { node { id quantity { winston ar } } } } }'}),
+        })
+        .then(res => res.json())
+        .then(res => {
+            return res.data;
+        });
+
+        var itx = (graphql.transactions).edges;
+        var hit = 0;
+        var count = itx.length;
+        if (count > 0) {
+
+            for (const key in itx) {
+                if (itx.hasOwnProperty(key)) {
+                    const e = itx[key];
+                    var qt = ((e.node).quantity).winston;
+                    if (qt === '100000000000') {
+                        hit += 1;
+                    }
+                    count -= 1;
+                    if (count === 0) {
+                        console.log(hit);
+                        return hit;
+                        
+                    }
+                }
+            }
+        } else {
+            return '0';
+        }   
+    } catch (error) {
+        return '0';
+    }
 }
